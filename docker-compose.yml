@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  shell:
+    build:
+      context: .
+    volumes:
+      - ./:/root/.dotfiles
+    stdin_open: true
+    tty: true
