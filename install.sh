@@ -1,9 +1,11 @@
 #!/bin/sh
 
 main () {
-    for module in ./modules/*
+    # Find module installers and run them
+    find modules -name install.sh |
+    while read installer;
     do
-
+        sh -c "${installer}";
     done
 }
 
