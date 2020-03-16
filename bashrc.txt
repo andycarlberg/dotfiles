@@ -1,0 +1,259 @@
+
+minjs() {
+  curl $1 > ~/Desktop/minjses/$2.js
+}
+
+alias ghcup="~/.ghcup/bin/ghcup"
+alias ghc="~/.ghcup/bin/ghc-8.6"
+alias ghci="~/.ghcup/bin/ghci-8.6"
+
+
+alias lblt="lando blt "
+alias lblt-behat="lando blt tests:behat:run"
+alias ldrush="lando drush @honcom.local "
+alias ldrupal="lando drupal --uri=hon.lndo.site "
+alias sub="sublime ."
+alias ldrush-si-yec="lando drush @self site-install lightning install_configure_form.enable_update_status_module=NULL --sites-subdir=honcom --site-name=honcom --site-mail=no-reply@acquia.com --account-name=wZQniKgYzV --account-mail=no-reply@acquia.com --locale=en --uri=honcom --no-interaction -vvv --ansi --existing-config && finished-thing \"Finished install with existing config\""
+alias ldrush-si-nec="lando drush @self site-install lightning install_configure_form.enable_update_status_module=NULL --sites-subdir=honcom --site-name=honcom --site-mail=no-reply@acquia.com --account-name=wZQniKgYzV --account-mail=no-reply@acquia.com --locale=en --uri=honcom --no-interaction -vvv --ansi && finished-thing \"Finished install withOUT existing config\""
+
+lblt-setup-hon() {
+  time lblt setup --site=honcom -n
+  ldrush cr
+  finished-thing "Finished HON BLT Setup!"
+}
+
+
+alias teamcityssh="ssh admpolonusg@mushni-devop03p.honi.com"
+
+alias notable-new-day="node ~/.notable/new-day.js"
+
+# change CXX to clang++ to allow gulp to install properly
+export CXX=clang++
+alias mysql=/usr/local/mysql/bin/mysql
+alias mysqldump=/usr/local/mysql/bin/mysqldump
+
+alias now="python -c 'import datetime; print datetime.datetime.now()'"
+
+alias hni="cd ~/Sites/hni/ && clear"
+
+alias honcom="cd ~/Sites/honcom && clear"
+
+alias Projects="cd ~/Documents/Projects && clear"
+
+doing-() {
+  DOING_DATE=$(now)
+  echo "$DOING_DATE : $1" >> ~/scripts/doing.txt
+}
+
+doing-log() {
+  cat ~/scripts/doing.txt
+}
+
+doing-view() {
+  tail -f ~/scripts/doing.txt
+}
+
+doing-edit() {
+  code ~/scripts/doing.txt
+}
+
+# useful things
+
+# tools
+alias tarextract="tar -zvxf"
+alias tarcompress="tar -zvcf"
+
+alias editbashrc="code ~/.bashrc"
+alias eb="editbashrc"
+alias sourcebashrc="source ~/.bashrc && echo 'Sourced the bashrc!'"
+alias sb="sourcebashrc"
+
+alias make-exec="sudo chmod +x "
+
+alias c="clear"
+alias la="ls -a"
+# alias l="ls"
+alias sl="ls"
+alias ll="ls -l"
+alias lq="ls -qaltr"
+alias lh="ls -lh"
+mkcd () {
+  mkdir "$1"
+  cd "$1"
+}
+
+new-proj() {
+  mkdir "$1"
+  code "$1"
+}
+
+love-build() {
+  rm "$1.love"
+  cd "$1"
+  zip -r "../$1.love" *
+  open "../$1.love"
+  cd -
+}
+
+# docker stuff
+
+dbash() {
+  docker exec -it "$1" bash
+}
+
+drun() {
+  docker exec -it "$1" bash -c "$2"
+}
+
+alias drweb='drun honcom_web_1'
+alias dbweb='dbash honcom_web_1'
+alias drwebsetup='date +\"%T\" && time drweb "/app/vendor/bin/blt setup --site=honcom -n" && finished-thing "HON DC BLT Setup Finished!"'
+
+drwebdrush() {
+  drweb "/app/vendor/bin/drush @honcom $1"
+}
+
+alias dcup='docker-compose up -d'
+
+alias dcstop='docker-compose stop'
+
+alias dcdown='docker-compose down'
+
+alias dcre='dcdown && dcup'
+
+alias dps='docker ps'
+
+alias dpsa='dps -a'
+
+alias dpsaq='dpsa -q'
+
+dstopremove() {
+  docker rm $(docker stop "$1")
+}
+
+alias dkill='docker rm $(docker stop $(docker ps -aq)) && docker volume rm $(docker volume ls -q)'
+alias dnuke="dkill && docker rmi $(docker images -q)"
+
+#git help
+alias where="git branch"
+alias wher="git branch"
+alias wut="git status"
+alias wat="git status"
+alias how="gitnp diff"
+alias when="git log"
+alias wen="git log"
+alias lgo="git log"
+alias get="git checkout "
+alias give="git push"
+alias git-squash="git rebase -i "
+alias git-hard-switch="git reset --hard && git checkout "
+diff-numstat() {
+  git diff $1 $2 --numstat
+}
+gitdc() {
+  git branch -D "$1"
+  git checkout "$1"
+}
+
+# applications
+alias love="/Applications/love.app/Contents/MacOS/love"
+alias julia="/Applications/Julia-1.0.app/Contents/Resources/julia/bin/julia"
+alias spotify="open /Applications/Spotify.app"
+
+# pathing stuff
+export PATH="$PATH:~/scripts"
+export PATH="$PATH:/Applications/Julia-1.0.app/Contents/Resources/julia/bin/julia"
+export PATH="/Library/PostgreSQL/10/bin:$PATH"
+
+# needed for nvm to work
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# git things
+alias gitnp="git --no-pager"
+
+# tool to prompt when a command is done
+finished-thing() {
+  osascript -e "tell app \"System Events\" to display dialog \"$1\""
+}
+
+
+# work things
+
+# helpful lando things
+restart-lando() {
+  lando destroy
+  lando start
+  lando-create-db-hon
+  lando-create-db-xpress
+  lando-create-db-eqp
+  finished-thing 'Finished LANDO Reset'
+}
+alias lando-create-db-hon="lando drush @local -l hon.com sql-create -y"
+# alias lando-dump-db-hon="lando drush @local -l hon.com sql-dump --result-file ./databases/dump.hon.sql && finished-thing 'Finished HON Dump of database'"
+alias lando-create-db-xpress="lando drush @local -l honexpressquote.hon.com sql-create -y"
+alias lando-create-db-eqp="lando drush @local -l honeqp.hon.com sql-create -y"
+alias drush-hon="lando drush @local -l hon.com "
+alias drush-eqp="lando drush @local -l honeqp.hon.com "
+alias drush-xpress="lando drush @local -l honexpressquote.hon.com "
+alias cc-hon="drush-hon cc all && finished-thing 'Finished HON Cache Clear'"
+alias cc-eqp="drush-eqp cc all && finished-thing 'Finished HONEQP Cache Clear'"
+alias cc-xpress="drush-xpress cc all && finished-thing 'Finished HONExpressQuote Cache Clear'"
+
+# reseting environment
+# only to be used in the Drupal Root folder
+lando-reset-hon() {
+  date +\"%T\"
+  lando-create-db-hon
+  time ./hni-drupal refresh -s hon.com -b "$1"
+  echo "$1" > ./databases/HON_LAST_RAN
+  finished-thing 'Finished HON Reset'
+}
+
+lando-reset-xpress() {
+  date +\"%T\"
+  lando-create-db-xpress
+  time ./hni-drupal refresh -s honexpressquote.hon.com -b "$1"
+  echo "$1" > ./databases/XPRESS_LAST_RAN
+  finished-thing 'Finished HONExpressQuote Reset'
+}
+
+lando-reset-eqp() {
+  date +\"%T\"
+  lando-create-db-eqp
+  time ./hni-drupal refresh -s honeqp.hon.com -b "$1"
+  echo "$1" > ./databases/EQP_LAST_RAN
+  finished-thing 'Finished HONEQP Reset'
+}
+
+# ssh into acquia dev environment
+# if the IP changes, remove the line from the hosts file, then run this again
+alias acquia-dev-ssh="ssh honcompany.dev@staging-16693.prod.hosting.acquia.com"
+alias acquia-dev-sftp="sftp honcompany.dev@staging-16693.prod.hosting.acquia.com"
+alias acquia-test-ssh="ssh honcompany.test@staging-16693.prod.hosting.acquia.com"
+alias acquia-test-sftp="sftp honcompany.test@staging-16693.prod.hosting.acquia.com"
+alias acquia-prod-ssh="ssh honcompany.prod@ded-16691.prod.hosting.acquia.com"
+alias acquia-prod-sftp="sftp honcompany.prod@ded-16691.prod.hosting.acquia.com"
+
+alias acquiad8-dev-ssh="ssh honcompanyd8.dev@honcompanyd8dev.ssh.prod.acquia-sites.com"
+alias acquiad8-dev-sftp="sftp honcompanyd8.dev@honcompanyd8dev.ssh.prod.acquia-sites.com"
+alias acquiad8-test-ssh="ssh honcompanyd8.test@honcompanyd8stg.ssh.prod.acquia-sites.com"
+alias acquiad8-test-sftp="sftp honcompanyd8.test@honcompanyd8stg.ssh.prod.acquia-sites.com"
+alias acquiad8-prod-ssh="ssh honcompanyd8.prod@honcompanyd8.ssh.prod.acquia-sites.com"
+alias acquiad8-prod-sftp="sftp honcompanyd8.prod@honcompanyd8.ssh.prod.acquia-sites.com"
+
+
+# search API things
+search-reset-index() {
+  cd ~/hni-search/src/HNI.Search.IndexManagement/obj/Release/
+  mono HNI.Search.IndexManagement.exe $1 $2 $3
+  cd -
+}
+
+
+export PATH="$PATH:/Applications/DevDesktop/tools"
+
+source ~/.bash_random_aliases
+
+alias shrug="echo '¯\_(ツ)_/¯'"
