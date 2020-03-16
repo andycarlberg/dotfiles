@@ -1,0 +1,25 @@
+
+_A() {
+  alias "$1"="$2"
+  echo "alias $1=\"$2\"" >> ~/.bash_random_aliases
+  sb
+}
+
+alias LDU="ldrush uli"
+alias GL="git log"
+alias GPLM="git pull --rebase origin master"
+alias GPHF="git push -f"
+alias GDC="gitdc"
+alias GC="git checkout"
+alias GCB="git checkout -b"
+alias GB="git branch"
+alias GBD="git branch -D "
+alias _AC="cat ~/.bash_random_aliases"
+alias GLQ="git log"
+alias GP="git push"
+alias GF="git fetch --all"
+alias GS="git status"
+alias LBLTS="lblt-setup-hon"
+alias SETUP="lblt-setup-hon"
+alias HC="honcom"
+alias _EA="code ~/.bash_random_aliases"
