@@ -14,3 +14,9 @@ endif
 
 syntax enable
 colorscheme OceanicNext
+
+" Configure key mappings
+" Exit Insert mode with 'jk' or 'kj'
+inoremap jk <ESC>
+inoremap kj <ESC>
+
