@@ -1,1 +1,0 @@
-echo "Ran zsh installer."
