@@ -6,6 +6,7 @@ Plug 'mhartington/oceanic-next'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " Initialize plugin system
 call plug#end()
@@ -69,3 +70,8 @@ endfunction
 " Remap for rename current word
 nmap <F2> <Plug>(coc-rename)
 
+
+
+" Configure fzf
+" Use <C-p> to open fuzzy search
+nnoremap <C-p> :<C-u>FZF<CR>
