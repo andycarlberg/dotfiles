@@ -4,6 +4,8 @@ call plug#begin('~/.vim/plugged')
 " Declare the list of plugins
 Plug 'mhartington/oceanic-next'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Initialize plugin system
 call plug#end()
