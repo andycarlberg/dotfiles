@@ -7,13 +7,15 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'editorconfig/editorconfig-vim'
 
 " Initialize plugin system
 call plug#end()
 
 
-
+"---------------------------------------
 " Configure colorscheme
+"---------------------------------------
 if (has("termguicolors"))
   set termguicolors
 endif
@@ -23,14 +25,27 @@ colorscheme OceanicNext
 
 
 
+"---------------------------------------
+" Configure indentation
+"---------------------------------------
+set shiftwidth=0
+set tabstop=4
+set expandtab
+
+
+
+"---------------------------------------
 " Configure key mappings
+"---------------------------------------
 " Exit Insert mode with 'jk' or 'kj'
 inoremap jk <ESC>
 inoremap kj <ESC>
 
 
 
+"---------------------------------------
 " Configure coc.nvim
+"---------------------------------------
 let g:coc_global_extensions = [
     \ 'coc-snippets',
     \ 'coc-pairs',
@@ -72,6 +87,8 @@ nmap <F2> <Plug>(coc-rename)
 
 
 
+"---------------------------------------
 " Configure fzf
+"---------------------------------------
 " Use <C-p> to open fuzzy search
 nnoremap <C-p> :<C-u>FZF<CR>
