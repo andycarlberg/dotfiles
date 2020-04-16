@@ -100,4 +100,4 @@ nnoremap <C-p> :<C-u>FZF<CR>
 "---------------------------------------
 " Open NERDTree by default
 autocmd vimenter * NERDTree
-
+autocmd vimenter * wincmd p
