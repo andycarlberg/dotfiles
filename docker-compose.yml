@@ -1,6 +1,7 @@
 version: "3.7"
 services:
   ubuntu:
-    image: ubuntu
+    image: registry.gitlab.com/andycarlberg/dotfiles:latest
+    user: ubuntu
     volumes:
-      - ./:/root/.dotfiles
+      - ./:/home/ubuntu/.dotfiles
