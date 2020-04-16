@@ -7,7 +7,10 @@
 # install scripts. This configures a reproducible profile across multiple 
 # machines.
 
+# Defaults
+DOTFILES=${DOTFILES:-"${PWD}"}
+
 # Find modules and run each install script.
-for module in $( ls -A ./modules) ; do
-    /bin/sh "${PWD}/modules/${module}/install.sh"
+for module in $( ls -A ${DOTFILES}/modules) ; do
+    /bin/sh "${DOTFILES}/modules/${module}/install.sh"
 done

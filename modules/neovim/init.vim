@@ -1,12 +1,21 @@
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
+"---------------------------------------
 " Declare the list of plugins
+"---------------------------------------
+" colorscheme
 Plug 'mhartington/oceanic-next'
+
+" auto complete
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+
+" navigation
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+" editing
 Plug 'editorconfig/editorconfig-vim'
 
 " Initialize plugin system
@@ -28,10 +37,10 @@ colorscheme OceanicNext
 "---------------------------------------
 " Configure indentation
 "---------------------------------------
-set shiftwidth=0
-set tabstop=4
-set expandtab
-
+set tabstop=4       " number of visual spaces per <Tab>
+set shiftwidth=0    " inherit number of spaces for autoindent from tabstop
+set expandtab       " tabs are spaces
+set autoindent
 
 
 "---------------------------------------
