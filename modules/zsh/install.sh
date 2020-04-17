@@ -6,17 +6,11 @@
 # Installs zsh configuration dotfiles.
 
 # Include utility library
-echo ${DOTFILES}
-
 # shellcheck source=lib/util.sh
 . "${DOTFILES}/lib/util.sh"
 
 install_zsh() {
-  echo "Attempting to install Zsh..."
-  sudo apt install zsh || {
-    echo "Zsh install failed. Install Zsh manually."
-  }
-  echo "Zsh successfully installed."
+  install "zsh"
 
   echo "Setting Zsh as default shell..."
   chsh -s "$(which zsh)" || {
@@ -26,20 +20,14 @@ install_zsh() {
 }
 
 install_ohmyzsh() {
-  command_exists git || {
-    echo "Git is not installed."
-    install_git
-  }
+  install "git"
 
   echo "Attempting to install Oh My Zsh..."
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 }
 
 setup() {
-  command_exists zsh || {
-    echo "Zsh is not installed."
-    install_zsh
-  }
+  install_zsh
   install_ohmyzsh
 }
 

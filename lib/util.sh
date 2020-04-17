@@ -8,14 +8,17 @@ command_exists() {
   command -v "$@" > /dev/null 2>&1
 }
 
-# Install Git.
+# Install an application.
 #
-# Git is a dependency for a lot of the tools. This provides a consistent install script for use by modules.
-install_git() {
-  sudo apt install git || {
-    echo "Git install failed. Install Git manually before running dotfiles install."
-    exit 1
+# Check if an application is already installed. If not, install it using a method appropriate for the OS.
+install() {
+  command_exists $1 || {
+    echo "$1 is not installed."
+    echo "Attempting to install $1..."
+    sudo apt install $1 -y || {
+      echo "Install failed. Install $1 manually."
+      exit 1
+    }
+    echo "$1 successfully installed."
   }
-  echo "Git successfully installed."
 }
-
