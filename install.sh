@@ -1,4 +1,10 @@
 #!/bin/sh
+
+# File
+# Self-contained install script
+#
+# Clones and bootstraps the dotfiles project. Needs to be self-contained for download and cannot include libraries.
+
 set -e
 
 # Defaults

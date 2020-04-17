@@ -8,7 +8,7 @@
 # machines.
 
 # Defaults
-DOTFILES=${DOTFILES:-"${PWD}"}
+export DOTFILES=${DOTFILES:-"$(dirname "$0")"}
 
 # Find modules and run each install script.
 for module in $( ls -A ${DOTFILES}/modules) ; do
