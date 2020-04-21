@@ -26,3 +26,20 @@ install() {
     echo "$1 successfully installed."
   }
 }
+
+# Create a symlink to a file.
+#
+# Safely create a symlink to a file, backing up and replacing any existing
+# files. This function is necessary because the `-b` option is not valid for
+# `ln` on macOS.
+#
+# $1 target file
+# $2 destination directory
+symlink() {
+  local filename="$(basename -- $1)"
+  local full_dest="${2}/${filename}"
+  [ -f "${full_dest}" ] || [ -L "${full_dest}" ] && {
+    mv "${full_dest}" "${full_dest}-$(date +"%y-%m-%d-%r")"
+  }
+  ln -sv $1 $2
+}

@@ -32,7 +32,7 @@ setup() {
 }
 
 bootstrap() {
-  ln -bsv "${DOTFILES}/modules/zsh/.zshrc" "${HOME}"
+  symlink "${DOTFILES}/modules/zsh/.zshrc" "${HOME}"
 }
 
 main() {

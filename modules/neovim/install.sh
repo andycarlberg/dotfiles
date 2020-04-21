@@ -15,8 +15,8 @@ setup() {
 
 bootstrap() {
   mkdir -p "${HOME}/.config/nvim"
-  ln -bsv "${DOTFILES}/modules/neovim/init.vim" "${HOME}/.config/nvim"
-  ln -bsv "${DOTFILES}/modules/neovim/coc-settings.json" "${HOME}/.config/nvim"
+  symlink "${DOTFILES}/modules/neovim/init.vim" "${HOME}/.config/nvim"
+  symlink "${DOTFILES}/modules/neovim/coc-settings.json" "${HOME}/.config/nvim"
 }
 
 main() {

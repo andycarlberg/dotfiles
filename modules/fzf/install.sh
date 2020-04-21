@@ -19,7 +19,7 @@ setup() {
 }
 
 bootstrap() {
-  ln -bsv "${DOTFILES}/modules/fzf/.fzf.zsh" "${HOME}"
+  symlink "${DOTFILES}/modules/fzf/.fzf.zsh" "${HOME}"
 }
 
 main() {
