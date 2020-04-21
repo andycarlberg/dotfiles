@@ -11,8 +11,12 @@ command_exists() {
 # Install an application.
 #
 # Check if an application is already installed. If not, install it using a method appropriate for the OS.
+#
+# $1 application name
+# $2 executable command (optional, if different)
 install() {
-  command_exists $1 || {
+  local command="${2:-$1}"
+  command_exists $command || {
     echo "$1 is not installed."
     echo "Attempting to install $1..."
     sudo apt install $1 -y || {

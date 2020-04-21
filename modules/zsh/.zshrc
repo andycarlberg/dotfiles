@@ -49,3 +49,4 @@ export EDITOR="nvim"
 export FZF_BASE="/usr/local/bin/fzf"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 export FZF_DEFAULT_COMMAND="ag --hidden --ignore .git -f -g \"\""
+

@@ -10,7 +10,7 @@
 . "${DOTFILES}/lib/util.sh"
 
 setup() {
-  install "neovim"
+  install "neovim" "nvim"
 }
 
 bootstrap() {
