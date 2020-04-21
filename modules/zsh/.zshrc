@@ -46,7 +46,9 @@ export EDITOR="nvim"
 ########################################
 # fzf configuration
 ########################################
-export FZF_BASE="/usr/local/bin/fzf"
+export FZF_BASE="${HOME}/.fzf"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 export FZF_DEFAULT_COMMAND="ag --hidden --ignore .git -f -g \"\""
 
+# Source fzf generated configuration
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
