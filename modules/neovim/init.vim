@@ -18,6 +18,9 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " editing
 Plug 'editorconfig/editorconfig-vim'
 
+" version control
+Plug 'tpope/vim-fugitive'
+
 " Initialize plugin system
 call plug#end()
 
