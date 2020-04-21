@@ -33,6 +33,7 @@ source $ZSH/oh-my-zsh.sh
 ########################################
 # pyenv configuration
 ########################################
+export PYENV_ROOT="${HOME}/.pyenv"
 export PATH="${HOME}/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
@@ -47,3 +48,4 @@ export EDITOR="nvim"
 ########################################
 export FZF_BASE="/usr/local/bin/fzf"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
+export FZF_DEFAULT_COMMAND="ag --hidden --ignore .git -f -g \"\""
