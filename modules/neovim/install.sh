@@ -17,6 +17,7 @@ bootstrap() {
   mkdir -p "${HOME}/.config/nvim"
   symlink "${DOTFILES}/modules/neovim/init.vim" "${HOME}/.config/nvim"
   symlink "${DOTFILES}/modules/neovim/coc-settings.json" "${HOME}/.config/nvim"
+  nvim +"PlugInstall --sync" +qa
 }
 
 main() {
