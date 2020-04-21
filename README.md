@@ -5,7 +5,7 @@
 ### via curl
 
 ```
-sh -c "\$(curl -fsSL https://gitlab.com/andycarlberg/dotfiles/-/raw/master/install.sh)"
+sh -c "$(curl -fsSL https://gitlab.com/andycarlberg/dotfiles/-/raw/master/install.sh)"
 ```
 
 ## Development
