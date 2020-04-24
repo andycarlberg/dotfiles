@@ -1,9 +1,18 @@
-# Path to your oh-my-zsh installation.
-export ZSH="${HOME}/.oh-my-zsh"
+# Defaults
+# Note: this will only be correct *most* of the time. It's covering the 80%,
+# not the 20%. See https://stackoverflow.com/a/29835459
+export DOTFILES=${DOTFILES:-"$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)"}
+
+# Check for dotfile updates
+source ${DOTFILES}/tools/upgrade.sh
 
 ########################################
 # Oh My Zsh configuration
 ########################################
+
+# Path to your oh-my-zsh installation.
+export ZSH="${HOME}/.oh-my-zsh"
+
 ZSH_THEME="af-magic"
 
 DISABLE_UPDATE_PROMPT="true"
