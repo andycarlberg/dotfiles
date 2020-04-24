@@ -14,10 +14,13 @@ call plug#begin('~/.vim/plugged')
 " Declare the list of plugins
 "---------------------------------------
 " colorscheme
-Plug 'mhartington/oceanic-next'
+Plug 'chuling/vim-equinusocio-material'
 
 " auto complete
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+
+" statusline
+Plug 'itchyny/lightline.vim'
 
 " navigation
 Plug 'scrooloose/nerdtree'
@@ -41,9 +44,15 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-syntax enable
-colorscheme OceanicNext
+let g:equinusocio_material_darker = 1
 
+syntax enable
+colorscheme equinusocio_material
+
+let g:lightline = {
+    \ 'colorscheme': 'equinusocio_material',
+    \}
+set noshowmode
 
 
 "---------------------------------------
