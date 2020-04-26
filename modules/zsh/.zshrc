@@ -1,7 +1,13 @@
 # Defaults
-# Note: this will only be correct *most* of the time. It's covering the 80%,
-# not the 20%. See https://stackoverflow.com/a/29835459
-export DOTFILES=${DOTFILES:-"$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)"}
+
+# Find the root of the dotfiles repository
+# TODO: Find a more robust way to find the dotfiles path
+# First find the canonical location of the .zshrc file
+ZSHRC_PATH="$(readlink -f ${HOME}/.zshrc)"
+# Second use dirname to move up three directories to the root of the dotfiles
+#         3          2     1
+# <dotfiles-root>/modules/zsh/.zshrc
+export DOTFILES="$(dirname -- $(dirname -- $(dirname -- $ZSHRC_PATH)))"
 
 # Check for dotfile updates
 source ${DOTFILES}/tools/upgrade.sh
