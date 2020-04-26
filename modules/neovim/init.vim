@@ -8,7 +8,7 @@ endif
 unlet autoload_plug_path
 
 " Specify a directory for plugins
-call plug#begin('~/.vim/plugged')
+call plug#begin(stdpath('data') . '/plugged')
 
 "---------------------------------------
 " Declare the list of plugins
@@ -29,6 +29,11 @@ Plug 'junegunn/fzf'
 
 " editing
 Plug 'editorconfig/editorconfig-vim'
+
+" syntax
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 
 " version control
 Plug 'tpope/vim-fugitive'
@@ -75,6 +80,24 @@ inoremap jk <ESC>
 inoremap kj <ESC>
 
 
+"---------------------------------------
+" Configure Windows Subsystem for Linux
+"---------------------------------------
+if !empty($WSL_DISTRO_NAME)
+    let g:clipboard = {
+          \   'name': 'wslclip',
+          \   'copy': {
+          \      '+': 'wslclip -i',
+          \      '*': 'wslclip -i',
+          \    },
+          \   'paste': {
+          \      '+': 'wslclip -o',
+          \      '*': 'wslclip -o',
+          \   },
+          \   'cache_enabled': 1,
+          \ }
+endif
+
 
 "---------------------------------------
 " Configure coc.nvim
@@ -83,19 +106,34 @@ let g:coc_global_extensions = [
     \ 'coc-snippets',
     \ 'coc-pairs',
     \ 'coc-diagnostic',
-    \ 'coc-prettier',
+    \ 'coc-tsserver',
     \ 'coc-json',
     \]
 
-" prettier command for coc
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+    let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+    let g:coc_global_extensions += ['coc-eslint']
+endif
 
 " Use <C-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use <Tab> and <S-Tab> to navigation completion list.
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Use <tab> to trigger completion, completion confirm, snippet expand and jump
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+      let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    let g:coc_snippet_next = '<tab>'
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
