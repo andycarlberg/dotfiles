@@ -33,6 +33,9 @@ Plug 'editorconfig/editorconfig-vim'
 " version control
 Plug 'tpope/vim-fugitive'
 
+" misc
+Plug 'meain/vim-package-info', { 'do': 'npm install' }
+
 " Initialize plugin system
 call plug#end()
 
