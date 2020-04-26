@@ -35,6 +35,9 @@ Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 
+" snippets
+Plug 'mlaursen/vim-react-snippets'
+
 " version control
 Plug 'tpope/vim-fugitive'
 
