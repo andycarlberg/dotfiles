@@ -5,5 +5,3 @@
 cd $DOTFILES
 
 git pull --rebase --stat origin master
-
-cd -

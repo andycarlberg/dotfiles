@@ -1,16 +1,45 @@
-# Defaults
+# OS-agnostic method to find canonical filepath
+#
+# This function is necessary because `readlink -f` is not available on macOS (though `readlink` is).
+# It must be included here because it is used to locate the dotfiles project directory.
+# TODO: Remove this when a more robust way of locating the directory is implemented.
+canonical_filepath() {
+    $(readlink -f $1 2> /dev/null) || {
+    TARGET=$1
+
+    cd $(dirname "$TARGET")
+    TARGET=$(basename "$TARGET")
+
+    # Iterate down a (possible) chain of symlinks
+    while [ -L "$TARGET" ]; do
+      TARGET=$(readlink "$TARGET")
+      cd $(dirname "$TARGET")
+      TARGET=$(basename "$TARGET")
+    done
+
+    # Compute the canonicalized name by finding the physical path
+    # for the directory we're in and appending the target file.
+    DIR=$(pwd -P)
+    RESULT="$DIR/$TARGET"
+
+    echo $RESULT
+  }
+}
 
 # Find the root of the dotfiles repository
 # TODO: Find a more robust way to find the dotfiles path
 # First find the canonical location of the .zshrc file
-ZSHRC_PATH="$(readlink -f ${HOME}/.zshrc)"
+ZSHRC_PATH="$(canonical_filepath ${HOME}/.zshrc)"
 # Second use dirname to move up three directories to the root of the dotfiles
 #         3          2     1
 # <dotfiles-root>/modules/zsh/.zshrc
 export DOTFILES="$(dirname -- $(dirname -- $(dirname -- $ZSHRC_PATH)))"
 
 # Check for dotfile updates
-source ${DOTFILES}/tools/upgrade.sh
+UPGRADE_RESULT=$(source ${DOTFILES}/tools/upgrade.sh)
+
+# Add dotfiles scripts to path
+export PATH=${DOTFILES}/bin:${PATH}
 
 ########################################
 # Oh My Zsh configuration
@@ -63,8 +92,7 @@ export EDITOR="nvim"
 # and add the xsel script to the path.
 # This is used to support copy-paste and things that depend on it
 [ -z "${WSL_DISTRO_NAME}" ] || {
-    export DISPLAY=${DISPLAY:-:0}
-    export PATH=${DOTFILES}/modules/neovim:${PATH}
+  export DISPLAY=${DISPLAY:-:0}
 }
 
 ########################################
