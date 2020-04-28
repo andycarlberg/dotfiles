@@ -31,9 +31,7 @@ Plug 'junegunn/fzf'
 Plug 'editorconfig/editorconfig-vim'
 
 " syntax
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
+Plug 'sheerun/vim-polyglot'
 
 " snippets
 Plug 'mlaursen/vim-react-snippets'
