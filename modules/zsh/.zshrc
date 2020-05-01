@@ -100,7 +100,11 @@ export EDITOR="nvim"
 ########################################
 export FZF_BASE="${HOME}/.fzf"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
-export FZF_DEFAULT_COMMAND="ag --hidden --ignore .git -f -g \"\""
+
+# If silver searcher is installed, use it to find files
+if type ag &> /dev/null; then
+    export FZF_DEFAULT_COMMAND="ag --hidden -p ${DOTFILES}/modules/fzf/.ignore -f -g \"\""
+fi
 
 # Source fzf generated configuration
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
