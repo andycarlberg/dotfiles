@@ -74,6 +74,12 @@ plugins=(fzf git gitfast z)
 
 source $ZSH/oh-my-zsh.sh
 
+# include module shell configuration
+for module in $(ls -A ${DOTFILES}/modules); do
+  ZSH_CONFIG="${DOTFILES}/modules/${module}/config.zsh"
+  [ -f $ZSH_CONFIG ] && source $ZSH_CONFIG
+done
+
 ########################################
 # pyenv configuration
 ########################################
@@ -81,37 +87,6 @@ export PYENV_ROOT="${HOME}/.pyenv"
 export PATH="${HOME}/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-
-########################################
-# neovim configuration
-########################################
-export EDITOR="nvim"
-
-# If we are running in a WSL instance
-# Set the DISPLAY variable to trick neovim into thinking there is an X env
-# and add the xsel script to the path.
-# This is used to support copy-paste and things that depend on it
-[ -z "${WSL_DISTRO_NAME}" ] || {
-  export DISPLAY=${DISPLAY:-:0}
-}
-
-########################################
-# fzf configuration
-########################################
-export FZF_BASE="${HOME}/.fzf"
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
-
-# If silver searcher is installed, use it to find files
-if type ag &> /dev/null; then
-    export FZF_DEFAULT_COMMAND="ag --hidden -p ${DOTFILES}/modules/fzf/.ignore -f -g \"\""
-    export FZF_CTRL_T_COMMAND="ag --hidden -p ${DOTFILES}/modules/fzf/.ignore -f -g \"\""
-fi
-
-# Fix alt-c command on macOS
-bindkey "ç" fzf-cd-widget
-
-# Source fzf generated configuration
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
 ########################################
