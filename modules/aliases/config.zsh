@@ -12,7 +12,7 @@ create_alias() {
 ########################################
 # Alias management
 ########################################
-alias ca=create_alias
+alias _a=create_alias
 
 ########################################
 # Git
@@ -20,6 +20,7 @@ alias ca=create_alias
 alias ga="git add"
 alias gs="git status"
 alias gcm="git commit -m"
+alias gcan="git commit --amend --no-edit"
 alias gp="git push"
 
 ########################################
