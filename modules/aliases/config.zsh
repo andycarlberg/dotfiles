@@ -17,11 +17,16 @@ alias _a=create_alias
 ########################################
 # Git
 ########################################
-alias ga="git add"
-alias gs="git status"
 alias gcm="git commit -m"
 alias gcan="git commit --amend --no-edit"
-alias gp="git push"
+alias gwhere="git branch"
+alias gwhat="git status"
+alias ghow="git diff"
+alias gwhen="git log"
+alias gget="git checkout"
+alias ggive="git push"
+alias gadd="git add"
+alias gall="git add ."
 
 ########################################
 # Uncategorized aliases
