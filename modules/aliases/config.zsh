@@ -27,6 +27,7 @@ alias gget="git checkout"
 alias ggive="git push"
 alias gadd="git add"
 alias gall="git add ."
+alias gsave="git commit"
 
 ########################################
 # Uncategorized aliases
