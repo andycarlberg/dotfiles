@@ -42,6 +42,11 @@ UPGRADE_RESULT=$(source ${DOTFILES}/tools/upgrade.sh)
 export PATH=${DOTFILES}/bin:${PATH}
 
 ########################################
+# Load tmux on startup
+########################################
+[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit; }
+
+########################################
 # Oh My Zsh configuration
 ########################################
 
