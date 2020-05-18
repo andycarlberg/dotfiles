@@ -9,10 +9,26 @@ create_alias() {
     echo "alias ${NEW_ALIAS}=\"${@}\"" >> ${DOTFILES}/modules/aliases/config.zsh
 }
 
+_list_colors() {
+    # https://superuser.com/questions/285381/how-does-the-tmux-color-palette-work
+    if [ -z $1 ]; then
+        BREAK=8
+    else
+        BREAK=$1
+    fi
+    for i in {0..255} ; do
+        printf "\x1b[38;5;${i}mcolour${i} \t"
+        if [ $(( i % $BREAK )) -eq $(($BREAK-1)) ] ; then
+            printf "\n"
+        fi
+    done
+}
+
 ########################################
-# Alias management
+# Helpers 
 ########################################
 alias _a=create_alias
+alias colors=_list_colors
 
 ########################################
 # Git
