@@ -109,7 +109,13 @@ let g:coc_global_extensions = [
     \ 'coc-diagnostic',
     \ 'coc-tsserver',
     \ 'coc-json',
+    \ 'coc-phpls'
     \]
+
+" Load environment config
+let g:coc_user_config = {
+    \ "intelephense.licenceKey": $INTELEPHENSE_KEY,
+    \}
 
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
     let g:coc_global_extensions += ['coc-prettier']

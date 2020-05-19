@@ -99,7 +99,7 @@ eval "$(pyenv virtualenv-init -)"
 function blt() {
   if [[ ! -z ${AH_SITE_ENVIRONMENT} ]]; then
     PROJECT_ROOT="/var/www/html/${AH_SITE_GROUP}.${AH_SITE_ENVIRONMENT}"
-  elif [ "`git rev-parse --show-cdup 2> /dev/null`" != "" ]; then
+  elif [ "$(git rev-parse --show-cdup 2> /dev/null)" != "" ]; then
     PROJECT_ROOT=$(git rev-parse --show-cdup)
   else
     PROJECT_ROOT="."
@@ -117,4 +117,9 @@ function blt() {
     return 1
   fi
 }
+
+########################################
+# Include Local configuration overrides
+########################################
+source ${HOME}/.zshrc.local
 
