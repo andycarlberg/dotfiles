@@ -44,7 +44,7 @@ export PATH=${DOTFILES}/bin:${PATH}
 ########################################
 # Load tmux on startup
 ########################################
-[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit; }
+command -v tmux > /dev/null 2>&1 && [ -z "$TMUX"  ] && { tmux attach || exec tmux new-session -c "$PWD" && exit; }
 
 ########################################
 # Oh My Zsh configuration
