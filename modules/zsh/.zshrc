@@ -4,7 +4,7 @@
 # It must be included here because it is used to locate the dotfiles project directory.
 # TODO: Remove this when a more robust way of locating the directory is implemented.
 canonical_filepath() {
-    $(readlink -f $1 2> /dev/null) || {
+  readlink -f $1 2> /dev/null || {
     TARGET=$1
 
     cd $(dirname "$TARGET")
@@ -44,7 +44,7 @@ export PATH=${DOTFILES}/bin:${PATH}
 ########################################
 # Load tmux on startup
 ########################################
-command -v tmux > /dev/null 2>&1 && [ -z "$TMUX"  ] && { tmux attach || exec tmux new-session -c "$PWD" && exit; }
+command -v tmux > /dev/null 2>&1 && [ -z "$TMUX" ] && { tmux attach || exec tmux new-session -c "$PWD" && exit; }
 
 ########################################
 # Oh My Zsh configuration
@@ -93,14 +93,13 @@ export PATH="${HOME}/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-
 ########################################
 # Acquia BLT configuration
 ########################################
 function blt() {
   if [[ ! -z ${AH_SITE_ENVIRONMENT} ]]; then
     PROJECT_ROOT="/var/www/html/${AH_SITE_GROUP}.${AH_SITE_ENVIRONMENT}"
-  elif [ "`git rev-parse --show-cdup 2> /dev/null`" != "" ]; then
+  elif [ "$(git rev-parse --show-cdup 2> /dev/null)" != "" ]; then
     PROJECT_ROOT=$(git rev-parse --show-cdup)
   else
     PROJECT_ROOT="."
@@ -118,4 +117,3 @@ function blt() {
     return 1
   fi
 }
-
