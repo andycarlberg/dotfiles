@@ -2,10 +2,12 @@
   "suggest.noselect": false,
   "coc.preferences.formatOnSaveFiletypes": ["*"],
   "diagnostic-languageserver.filetypes": {
-    "sh": "shellcheck"
+    "sh": "shellcheck",
+    "zsh": "shellcheck"
   },
   "diagnostic-languageserver.formatFiletypes": {
-    "sh": "shfmt"
+    "sh": "shfmt",
+    "zsh": "shfmt"
   },
   "diagnostic-languageserver.formatters": {
     "shfmt": {
