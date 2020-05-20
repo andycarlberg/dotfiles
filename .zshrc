@@ -1,46 +1,3 @@
-# OS-agnostic method to find canonical filepath
-#
-# This function is necessary because `readlink -f` is not available on macOS (though `readlink` is).
-# It must be included here because it is used to locate the dotfiles project directory.
-# TODO: Remove this when a more robust way of locating the directory is implemented.
-canonical_filepath() {
-  readlink -f $1 2> /dev/null || {
-    TARGET=$1
-
-    cd $(dirname "$TARGET")
-    TARGET=$(basename "$TARGET")
-
-    # Iterate down a (possible) chain of symlinks
-    while [ -L "$TARGET" ]; do
-      TARGET=$(readlink "$TARGET")
-      cd $(dirname "$TARGET")
-      TARGET=$(basename "$TARGET")
-    done
-
-    # Compute the canonicalized name by finding the physical path
-    # for the directory we're in and appending the target file.
-    DIR=$(pwd -P)
-    RESULT="$DIR/$TARGET"
-
-    echo $RESULT
-  }
-}
-
-# Find the root of the dotfiles repository
-# TODO: Find a more robust way to find the dotfiles path
-# First find the canonical location of the .zshrc file
-ZSHRC_PATH="$(canonical_filepath ${HOME}/.zshrc)"
-# Second use dirname to move up three directories to the root of the dotfiles
-#         3          2     1
-# <dotfiles-root>/modules/zsh/.zshrc
-export DOTFILES="$(dirname -- $(dirname -- $(dirname -- $ZSHRC_PATH)))"
-
-# Check for dotfile updates
-UPGRADE_RESULT=$(source ${DOTFILES}/tools/upgrade.sh)
-
-# Add dotfiles scripts to path
-export PATH=${DOTFILES}/bin:${PATH}
-
 ########################################
 # Load tmux on startup
 ########################################
@@ -79,11 +36,41 @@ plugins=(fzf git gitfast z)
 
 source $ZSH/oh-my-zsh.sh
 
-# include module shell configuration
-for module in $(ls -A ${DOTFILES}/modules); do
-  ZSH_CONFIG="${DOTFILES}/modules/${module}/config.zsh"
-  [ -f $ZSH_CONFIG ] && source $ZSH_CONFIG
-done
+########################################
+# load aliases
+########################################
+source $HOME/.zsh.aliases
+
+########################################
+# neovim configuration
+########################################
+export EDITOR="nvim"
+
+# If we are running in a WSL instance
+# Set the DISPLAY variable to trick neovim into thinking there is an X env
+# and add the xsel script to the path.
+# This is used to support copy-paste and things that depend on it
+[ -z "${WSL_DISTRO_NAME}" ] || {
+  export DISPLAY=${DISPLAY:-:0}
+}
+
+########################################
+# fzf configuration
+########################################
+export FZF_BASE="${HOME}/.fzf"
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
+
+# If silver searcher is installed, use it to find files
+if type ag &> /dev/null; then
+  export FZF_DEFAULT_COMMAND="ag --hidden -p ${DOTFILES}/modules/fzf/.fzf.ignore -f -g \"\""
+  export FZF_CTRL_T_COMMAND="ag --hidden -p ${DOTFILES}/modules/fzf/.fzf.ignore -f -g \"\""
+fi
+
+# Fix alt-c command on macOS
+bindkey "ç" fzf-cd-widget
+
+# Source fzf generated configuration
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ########################################
 # pyenv configuration
@@ -122,4 +109,3 @@ function blt() {
 # Include Local configuration overrides
 ########################################
 [ -f ${HOME}/.zshrc.local ] && source ${HOME}/.zshrc.local
-
