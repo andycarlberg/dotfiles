@@ -1,5 +1,159 @@
 #!/bin/sh
 
-echo "Updating the yadm repo origin URL"
-yadm remote set-url origin "git@github.com:andycarlberg/dotfiles.git"
+is_root() {
+  return $(id -u)
+}
+
+detect_system_type() {
+  [ -z $system_type ] && {
+    system_type=$(uname -s)
+  }
+}
+
+command_exists() {
+  command -v "$@" > /dev/null 2>&1
+}
+
+detect_package_manager() {
+  [ -z $package_manager ] && {
+    command_exists apt && [ $system_type != "Darwin" ] && {
+      package_manager="apt"
+      return 0
+    }
+
+    command_exists apt-get && {
+      package_manager="apt-get"
+      return 0
+    }
+
+    command_exists pacman && {
+      package_manager="pacman"
+      return 0
+    }
+
+    command_exists brew && {
+      package_manager="brew"
+      return 0
+    }
+
+    echo "Cannot find package manager!"
+  }
+}
+
+update_package_repos() {
+  (is_root || [ $system_type = "Darwin" ]) && sudo="" || sudo="sudo "
+
+  [ -z $package_repos_updated ] && {
+    case $package_manager in
+      "apt")
+        $sudo$package_manager update -y
+        package_repos_updated=0
+        ;;
+      "apt-get")
+        $sudo$package_manager update -y
+        package_repos_updated=0
+        ;;
+      *)
+        echo "Unable to update package repositories for ${package_manager}."
+        ;;
+    esac
+  }
+  return 0
+}
+
+# Install a package using the preferred system package manager.
+#
+# @arg $1
+#   executable name
+# @arg $2
+#   package name (optional, if different from $1)
+install_package() {
+  (is_root || [ $system_type = "Darwin" ]) && sudo="" || sudo="sudo "
+  executable=$1
+  package=${2:-$executable}
+
+  update_package_repos
+
+  command_exists $executable || {
+    $sudo$package_manager install $package -y
+  }
+}
+
+install_homebrew() {
+  command_exists brew || {
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  }
+}
+
+main() {
+  install_homebrew
+
+  detect_system_type
+  detect_package_manager
+
+  ########################################
+  # YADM
+  ########################################
+  echo "Updating the yadm repo origin URL"
+  yadm remote set-url origin "git@github.com:andycarlberg/dotfiles.git"
+
+  ########################################
+  # zsh
+  ########################################
+  command_exists zsh || {
+    install_package zsh
+    chsh -s $(which zsh)
+    curl -L git.io/antigen > antigen.zsh
+  }
+
+  ########################################
+  # tmux
+  ########################################
+  command_exists tmux || {
+    install_package tmux
+  }
+
+  ########################################
+  # fzf
+  ########################################
+  command_exists fzf || {
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install --key-bindings --completion --update-rc
+  }
+
+  ########################################
+  # ag - The Silver Searcher
+  ########################################
+  command_exists ag || {
+    case $package_manager in
+      "apt")
+        ag_package="silversearcher-ag"
+        ;;
+      "apt-get")
+        ag_package="silversearcher-ag"
+        ;;
+      *)
+        ag_package="the_silver_searcher"
+        ;;
+    esac
+    install_package ag $ag_package
+  }
+
+  ########################################
+  # NeoVim
+  ########################################
+  # We don't install NeoVim yet because it's surprisingly difficult to script...
+  command_exists nvim && {
+    nvim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
+  }
+
+}
+
+if is_root; then
+  "Don't run this as root!"
+  exit 1
+fi
+
+main "$@"
 
