@@ -104,6 +104,9 @@ main() {
   command_exists zsh || {
     install_package zsh
     chsh -s $(which zsh)
+  }
+  
+  [ -f ${HOME}/antigen.zsh || {
     curl -L git.io/antigen > antigen.zsh
   }
 
