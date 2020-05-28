@@ -117,6 +117,14 @@ main() {
     install_package tmux
   }
 
+  [ -d "${HOME}/.tmux/plugins/tpm" ] || {
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  }
+
+  ${HOME}/.tmux/plugins/tpm/bin/clean_plugins
+  ${HOME}/.tmux/plugins/tpm/bin/update_plugins all
+  ${HOME}/.tmux/plugins/tpm/bin/install_plugins
+
   ########################################
   # fzf
   ########################################
