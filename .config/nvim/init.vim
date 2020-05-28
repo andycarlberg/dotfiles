@@ -82,6 +82,14 @@ inoremap kj <ESC>
 
 
 "---------------------------------------
+" Configure misc
+"---------------------------------------
+" Enable hybrid line numbers
+set number
+set relativenumber
+
+
+"---------------------------------------
 " Configure Windows Subsystem for Linux
 "---------------------------------------
 if !empty($WSL_DISTRO_NAME)
