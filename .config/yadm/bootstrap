@@ -103,9 +103,9 @@ main() {
   ########################################
   command_exists zsh || {
     install_package zsh
-    chsh -s $(which zsh)
+    sudo chsh -s $(which zsh) $(id -u -n)
   }
-  
+
   [ -f ${HOME}/antigen.zsh || {
     curl -L git.io/antigen > antigen.zsh
   }
@@ -167,4 +167,3 @@ if is_root; then
 fi
 
 main "$@"
-
