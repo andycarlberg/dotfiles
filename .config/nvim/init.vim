@@ -115,7 +115,6 @@ let g:coc_global_extensions = [
     \ 'coc-snippets',
     \ 'coc-pairs',
     \ 'coc-diagnostic',
-    \ 'coc-tsserver',
     \ 'coc-json',
     \ 'coc-phpls'
     \]
