@@ -6,7 +6,7 @@ create_alias() {
   shift
 
   alias "${NEW_ALIAS}"="$(echo ${@})"
-  echo "alias ${NEW_ALIAS}=\"${@}\"" >> ${DOTFILES}/modules/aliases/config.zsh
+  echo "alias ${NEW_ALIAS}=\"${@}\"" >> ${HOME}/aliases.zsh
 }
 
 _list_colors() {
@@ -29,6 +29,11 @@ _list_colors() {
 ########################################
 alias _a=create_alias
 alias colors=_list_colors
+
+########################################
+# SSH
+########################################
+alias ssh-keygen-4096="ssh-keygen -t rsa -b 4096 -C"
 
 ########################################
 # Git
