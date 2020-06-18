@@ -6,11 +6,11 @@ command -v tmux > /dev/null 2>&1 && [ -z "$TMUX" ] && { tmux attach || exec tmux
 ########################################
 # Update dotfiles
 ########################################
-yadm_is_current=$(yadm fetch --dry-run)
+yadm_is_current=$(yadm fetch --dry-run 2>&1)
 [ -z $yadm_is_current ] || {
   yadm fetch origin
   yadm pull --rebase
-  yadm_encrypt_is_current=$(yadm diff HEAD~1 HEAD | grep "files.gpg")
+  yadm_encrypt_is_current=$(yadm diff HEAD~1 HEAD | grep "files.gpg" 2>&1)
   [ -z $yadm_encrypt_is_current ] || {
     yadm decrypt
   }
