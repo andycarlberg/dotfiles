@@ -117,7 +117,8 @@ let g:coc_global_extensions = [
     \ 'coc-pairs',
     \ 'coc-diagnostic',
     \ 'coc-json',
-    \ 'coc-phpls'
+    \ 'coc-phpls',
+    \ 'coc-tsserver'
     \]
 
 " Load environment config
@@ -186,3 +187,9 @@ nnoremap <C-p> :<C-u>FZF<CR>
 " Show hidden files
 let NERDTreeShowHidden=1
 
+"---------------------------------------
+" Configure vim-polyglot
+"---------------------------------------
+" Configure vim-javascript
+" enable JSDoc syntax highlighting
+let g:javascript_plugin_jsdoc = 1
