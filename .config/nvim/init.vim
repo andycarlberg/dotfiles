@@ -26,6 +26,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 " editing
 Plug 'editorconfig/editorconfig-vim'
