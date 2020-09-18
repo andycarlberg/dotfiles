@@ -27,6 +27,7 @@ antigen use oh-my-zsh
 antigen bundle fzf
 antigen bundle git
 antigen bundle gitfast
+antigen bundle thefuck
 antigen bundle z
 
 antigen theme af-magic
@@ -76,6 +77,11 @@ export PYENV_ROOT="${HOME}/.pyenv"
 export PATH="${HOME}/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+########################################
+# thefuck configuration
+########################################
+eval $(thefuck --alias)
 
 ########################################
 # Acquia BLT configuration
