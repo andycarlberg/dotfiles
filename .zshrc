@@ -1,9 +1,4 @@
 ########################################
-# Load tmux on startup
-########################################
-command -v tmux > /dev/null 2>&1 && [ -z "$TMUX" ] && { tmux attach || exec tmux new-session -c "$PWD" && exit; }
-
-########################################
 # Update dotfiles
 ########################################
 yadm_is_current=$(yadm fetch --dry-run 2>&1)
@@ -73,15 +68,19 @@ bindkey "ç" fzf-cd-widget
 ########################################
 # pyenv configuration
 ########################################
-export PYENV_ROOT="${HOME}/.pyenv"
-export PATH="${HOME}/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+if type pyenv &> /dev/null; then
+  export PYENV_ROOT="${HOME}/.pyenv"
+  export PATH="${HOME}/.pyenv/bin:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
 
 ########################################
 # thefuck configuration
 ########################################
-eval $(thefuck --alias)
+if type thefuck &> /dev/null; then
+  eval $(thefuck --alias)
+fi
 
 ########################################
 # Acquia BLT configuration

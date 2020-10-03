@@ -87,8 +87,6 @@ install_homebrew() {
 }
 
 main() {
-  install_homebrew
-
   detect_system_type
   detect_package_manager
 
@@ -101,11 +99,6 @@ main() {
   ########################################
   # zsh
   ########################################
-  command_exists zsh || {
-    install_package zsh
-    sudo chsh -s $(which zsh) $(id -u -n)
-  }
-
   [ -f ${HOME}/antigen.zsh ] || {
     curl -L git.io/antigen > antigen.zsh
   }
@@ -114,41 +107,14 @@ main() {
   # tmux
   ########################################
   command_exists tmux || {
-    install_package tmux
-  }
 
-  [ -d "${HOME}/.tmux/plugins/tpm" ] || {
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-  }
+    [ -d "${HOME}/.tmux/plugins/tpm" ] || {
+      git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    }
 
-  ${HOME}/.tmux/plugins/tpm/bin/clean_plugins
-  ${HOME}/.tmux/plugins/tpm/bin/update_plugins all
-  ${HOME}/.tmux/plugins/tpm/bin/install_plugins
-
-  ########################################
-  # fzf
-  ########################################
-  command_exists fzf || {
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install --key-bindings --completion --update-rc
-  }
-
-  ########################################
-  # ag - The Silver Searcher
-  ########################################
-  command_exists ag || {
-    case $package_manager in
-      "apt")
-        ag_package="silversearcher-ag"
-        ;;
-      "apt-get")
-        ag_package="silversearcher-ag"
-        ;;
-      *)
-        ag_package="the_silver_searcher"
-        ;;
-    esac
-    install_package ag $ag_package
+    ${HOME}/.tmux/plugins/tpm/bin/clean_plugins
+    ${HOME}/.tmux/plugins/tpm/bin/update_plugins all
+    ${HOME}/.tmux/plugins/tpm/bin/install_plugins
   }
 
   ########################################
