@@ -1,0 +1,8 @@
+[user]
+	# These values are set in ~/.gitconfig_local
+
+[pull]
+	rebase = false
+
+[include]
+	path = ~/.gitconfig_local
