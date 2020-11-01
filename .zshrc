@@ -108,6 +108,15 @@ function blt() {
 }
 
 ########################################
+# sdkman configuration
+########################################
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/andycarlberg/.sdkman"
+[[ -s "/home/andycarlberg/.sdkman/bin/sdkman-init.sh" ]] && source "/home/andycarlberg/.sdkman/bin/sdkman-init.sh"
+
+########################################
 # Include Local configuration overrides
 ########################################
 [ -f ${HOME}/.zshrc.local ] && source ${HOME}/.zshrc.local
+
+
