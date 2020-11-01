@@ -13,14 +13,9 @@ call plug#begin(stdpath('data') . '/plugged')
 "---------------------------------------
 " Declare the list of plugins
 "---------------------------------------
-" colorscheme
+" ui
 Plug 'chuling/vim-equinusocio-material'
-
-" auto complete
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-
-" statusline
-Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
 
 " navigation
 Plug 'scrooloose/nerdtree'
@@ -34,11 +29,13 @@ Plug 'editorconfig/editorconfig-vim'
 " syntax
 Plug 'sheerun/vim-polyglot'
 
+" LSP
+" Plug 'neovim/nvim-lspconfig'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " snippets
-Plug 'mlaursen/vim-react-snippets'
 
 " version control
-Plug 'tpope/vim-fugitive'
 
 " misc
 Plug 'meain/vim-package-info', { 'do': 'npm install' }
@@ -59,11 +56,6 @@ let g:equinusocio_material_darker = 1
 syntax enable
 colorscheme equinusocio_material
 
-let g:lightline = {
-    \ 'colorscheme': 'equinusocio_material',
-    \}
-set noshowmode
-
 
 "---------------------------------------
 " Configure indentation
@@ -77,9 +69,6 @@ set autoindent
 "---------------------------------------
 " Configure key mappings
 "---------------------------------------
-" Exit Insert mode with 'jk' or 'kj'
-inoremap jk <ESC>
-inoremap kj <ESC>
 
 
 "---------------------------------------
@@ -91,91 +80,22 @@ set relativenumber
 
 
 "---------------------------------------
-" Configure Windows Subsystem for Linux
-"---------------------------------------
-if !empty($WSL_DISTRO_NAME)
-    let g:clipboard = {
-          \   'name': 'wslclip',
-          \   'copy': {
-          \      '+': 'wslclip -i',
-          \      '*': 'wslclip -i',
-          \    },
-          \   'paste': {
-          \      '+': 'wslclip -o',
-          \      '*': 'wslclip -o',
-          \   },
-          \   'cache_enabled': 1,
-          \ }
-endif
-
-
-"---------------------------------------
 " Configure coc.nvim
 "---------------------------------------
 let g:coc_global_extensions = [
-    \ 'coc-snippets',
-    \ 'coc-pairs',
-    \ 'coc-diagnostic',
-    \ 'coc-json',
-    \ 'coc-phpls',
-    \ 'coc-tsserver'
-    \]
+  \ 'coc-phpls',
+  \ 'coc-tsserver'
+  \]
 
-" Load environment config
-let g:coc_user_config = {
-    \ "intelephense.licenceKey": $INTELEPHENSE_KEY,
-    \}
-
-if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
-    let g:coc_global_extensions += ['coc-prettier']
-endif
-
+" Load eslint if in an appropriate project
 if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
     let g:coc_global_extensions += ['coc-eslint']
 endif
 
-" Use <C-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <tab> to trigger completion, completion confirm, snippet expand and jump
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-      let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
-
-    let g:coc_snippet_next = '<tab>'
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Remap for rename current word
-nmap <F2> <Plug>(coc-rename)
-
+" Load environment config
+let g:coc_user_config = {
+   \ "intelephense.licenceKey": $INTELEPHENSE_KEY,
+   \}
 
 
 "---------------------------------------
@@ -183,7 +103,6 @@ nmap <F2> <Plug>(coc-rename)
 "---------------------------------------
 " Use <C-p> to open fuzzy search
 nnoremap <C-p> :<C-u>FZF<CR>
-
 
 
 "---------------------------------------
