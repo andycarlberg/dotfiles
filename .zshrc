@@ -35,6 +35,13 @@ antigen apply
 source $HOME/aliases.zsh
 
 ########################################
+# ssh configuration
+########################################
+[ -f "$HOME/.ssh/id_rsa" ] && {
+    ssh-add $HOME/.ssh/id_rsa
+}
+
+########################################
 # neovim configuration
 ########################################
 export EDITOR="nvim"
