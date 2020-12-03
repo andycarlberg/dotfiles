@@ -126,7 +126,16 @@ export SDKMAN_DIR="/home/andycarlberg/.sdkman"
 [[ -s "/home/andycarlberg/.sdkman/bin/sdkman-init.sh" ]] && source "/home/andycarlberg/.sdkman/bin/sdkman-init.sh"
 
 ########################################
+# Vagrant configuration
+########################################
+# >>>> Vagrant command completion (start)
+fpath=(/opt/vagrant/embedded/gems/2.2.14/gems/vagrant-2.2.14/contrib/zsh $fpath)
+compinit
+# <<<<  Vagrant command completion (end)
+
+########################################
 # Include Local configuration overrides
 ########################################
 [ -f ${HOME}/.zshrc.local ] && source ${HOME}/.zshrc.local
+
 
