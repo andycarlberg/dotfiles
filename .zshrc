@@ -75,11 +75,9 @@ bindkey "ç" fzf-cd-widget
 ########################################
 # pyenv configuration
 ########################################
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-  eval "$(pyenv virtualenvwrapper -)"
-fi
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+if which pyenv-virtualenvwrapper > /dev/null; then eval "$(pyenv virtualenvwrapper -)"; fi
 
 ########################################
 # thefuck configuration

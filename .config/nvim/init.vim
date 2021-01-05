@@ -80,6 +80,11 @@ set relativenumber
 
 
 "---------------------------------------
+" Configure python provider
+"---------------------------------------
+let g:python3_host_prog = $HOME.'/.pyenv/versions/neovim/bin/python'
+
+"---------------------------------------
 " Configure coc.nvim
 "---------------------------------------
 let g:coc_global_extensions = [
