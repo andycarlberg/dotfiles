@@ -84,6 +84,7 @@ set relativenumber
 "---------------------------------------
 let g:coc_global_extensions = [
   \ 'coc-phpls',
+  \ 'coc-python',
   \ 'coc-tsserver'
   \]
 
@@ -97,6 +98,9 @@ let g:coc_user_config = {
    \ "intelephense.licenceKey": $INTELEPHENSE_KEY,
    \}
 
+" Navigate completion list with Tab
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 "---------------------------------------
 " Configure fzf
