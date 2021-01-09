@@ -107,6 +107,9 @@ let g:coc_user_config = {
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" Rename symbol with F2
+nmap <F2> <Plug>(coc-rename)
+
 "---------------------------------------
 " Configure fzf
 "---------------------------------------
