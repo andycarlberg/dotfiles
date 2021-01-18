@@ -14,7 +14,7 @@ call plug#begin(stdpath('data') . '/plugged')
 " Declare the list of plugins
 "---------------------------------------
 " ui
-Plug 'chuling/vim-equinusocio-material'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'vim-airline/vim-airline'
 
 " navigation
@@ -22,6 +22,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'christoomey/vim-tmux-navigator'
 
 " editing
 Plug 'editorconfig/editorconfig-vim'
@@ -36,6 +37,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " snippets
 
 " version control
+Plug 'tpope/vim-fugitive'
 
 " misc
 Plug 'meain/vim-package-info', { 'do': 'npm install' }
@@ -51,11 +53,11 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-let g:equinusocio_material_darker = 1
+let g:material_theme_style = 'default'
+let g:material_terminal_italics = 1
 
 syntax enable
-colorscheme equinusocio_material
-
+colorscheme material
 
 "---------------------------------------
 " Configure indentation
