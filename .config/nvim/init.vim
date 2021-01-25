@@ -26,6 +26,7 @@ Plug 'christoomey/vim-tmux-navigator'
 
 " editing
 Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/commentary'
 
 " syntax
 Plug 'sheerun/vim-polyglot'
@@ -62,10 +63,10 @@ colorscheme material
 "---------------------------------------
 " Configure indentation
 "---------------------------------------
-set tabstop=4       " number of visual spaces per <Tab>
-set shiftwidth=0    " inherit number of spaces for autoindent from tabstop
-set expandtab       " tabs are spaces
-set autoindent
+" set tabstop=4       " number of visual spaces per <Tab>
+" set shiftwidth=0    " inherit number of spaces for autoindent from tabstop
+" set expandtab       " tabs are spaces
+" set autoindent
 
 
 "---------------------------------------
