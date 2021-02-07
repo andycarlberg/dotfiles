@@ -26,7 +26,7 @@ Plug 'christoomey/vim-tmux-navigator'
 
 " editing
 Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/commentary'
+Plug 'tpope/vim-commentary'
 
 " syntax
 Plug 'sheerun/vim-polyglot'
