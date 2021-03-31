@@ -61,4 +61,4 @@ alias hog-composer="COMPOSER_MEMORY_LIMIT=1 composer"
 ########################################
 # These are aliases that have been quick-added but not organized. Generally,
 # they should be organized before being commited to the dotfiles repo.
-alias drupal-nuke="rm -rf vendor composer.lock docroot/core docroot/modules/contrib docroot/profiles/contrib docroot/themes/contrib && composer clearcache && composer install"
+alias drupal-nuke="rm -rf vendor composer.lock docroot/core docroot/modules/contrib docroot/profiles/contrib docroot/themes/contrib && composer clearcache && COMPOSER_MEMORY_LIMIT=-1 composer install"
