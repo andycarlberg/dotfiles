@@ -36,6 +36,11 @@ alias colors=_list_colors
 alias ssh-keygen-4096="ssh-keygen -t rsa -b 4096 -C"
 
 ########################################
+# Drupal
+########################################
+alias drupal-nuke="rm -rf vendor composer.lock docroot/core docroot/modules/contrib docroot/profiles/contrib docroot/themes/contrib && composer clearcache && COMPOSER_MEMORY_LIMIT=-1 composer install"
+
+########################################
 # Git
 ########################################
 alias gcm="git commit -m"
@@ -57,8 +62,16 @@ alias gsave="git commit"
 alias hog-composer="COMPOSER_MEMORY_LIMIT=1 composer"
 
 ########################################
+# Vagrant
+########################################
+vagrant-run() {
+  vagrant_command="cd /vagrant; ${@}"
+  [[ $vagrant_command == *\; ]] || vagrant_command="$vagrant_command;"
+  vagrant ssh -c $vagrant_command
+}
+
+########################################
 # Uncategorized aliases
 ########################################
 # These are aliases that have been quick-added but not organized. Generally,
 # they should be organized before being commited to the dotfiles repo.
-alias drupal-nuke="rm -rf vendor composer.lock docroot/core docroot/modules/contrib docroot/profiles/contrib docroot/themes/contrib && composer clearcache && COMPOSER_MEMORY_LIMIT=-1 composer install"
