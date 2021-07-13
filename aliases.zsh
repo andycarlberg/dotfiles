@@ -29,6 +29,7 @@ _list_colors() {
 ########################################
 alias _a=create_alias
 alias colors=_list_colors
+alias vim="nvim"
 
 ########################################
 # SSH
