@@ -15,11 +15,8 @@ call plug#begin(stdpath('data') . '/plugged')
 "---------------------------------------
 " ui
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-Plug 'vim-airline/vim-airline'
 
 " navigation
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
@@ -32,8 +29,6 @@ Plug 'tpope/vim-commentary'
 Plug 'sheerun/vim-polyglot'
 
 " LSP
-" Plug 'neovim/nvim-lspconfig'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " snippets
 
@@ -63,10 +58,6 @@ colorscheme material
 "---------------------------------------
 " Configure indentation
 "---------------------------------------
-" set tabstop=4       " number of visual spaces per <Tab>
-" set shiftwidth=0    " inherit number of spaces for autoindent from tabstop
-" set expandtab       " tabs are spaces
-" set autoindent
 
 
 "---------------------------------------
@@ -87,32 +78,6 @@ set relativenumber
 "---------------------------------------
 let g:python3_host_prog = $HOME.'/.pyenv/versions/neovim/bin/python'
 
-"---------------------------------------
-" Configure coc.nvim
-"---------------------------------------
-let g:coc_global_extensions = [
-  \ 'coc-phpls',
-  \ 'coc-python',
-  \ 'coc-svelte',
-  \ 'coc-tsserver'
-  \]
-
-" Load eslint if in an appropriate project
-if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
-    let g:coc_global_extensions += ['coc-eslint']
-endif
-
-" Load environment config
-let g:coc_user_config = {
-   \ "intelephense.licenceKey": $INTELEPHENSE_KEY,
-   \}
-
-" Navigate completion list with Tab
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Rename symbol with F2
-nmap <F2> <Plug>(coc-rename)
 
 "---------------------------------------
 " Configure fzf
@@ -120,12 +85,6 @@ nmap <F2> <Plug>(coc-rename)
 " Use <C-p> to open fuzzy search
 nnoremap <C-p> :<C-u>FZF<CR>
 
-
-"---------------------------------------
-" Configure NERDTree
-"---------------------------------------
-" Show hidden files
-let NERDTreeShowHidden=1
 
 "---------------------------------------
 " Configure vim-polyglot
