@@ -18,12 +18,6 @@ main() {
   detect_system_type
 
   ########################################
-  # YADM
-  ########################################
-  echo "Updating the yadm repo origin URL"
-  yadm remote set-url origin "git@github.com:andycarlberg/dotfiles.git"
-
-  ########################################
   # zsh
   ########################################
   command_exists zsh && {
