@@ -1,0 +1,11 @@
+antigen use oh-my-zsh
+
+antigen bundle fzf
+antigen bundle git
+antigen bundle gitfast
+antigen bundle thefuck
+antigen bundle z
+
+antigen theme af-magic
+
+antigen apply

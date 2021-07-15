@@ -17,17 +17,7 @@ yadm_is_current=$(yadm fetch --dry-run 2>&1)
 ########################################
 source ${HOME}/antigen.zsh
 
-antigen use oh-my-zsh
-
-antigen bundle fzf
-antigen bundle git
-antigen bundle gitfast
-antigen bundle thefuck
-antigen bundle z
-
-antigen theme af-magic
-
-antigen apply
+antigen init ${HOME}/.antigenrc
 
 ########################################
 # load aliases
