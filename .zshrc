@@ -13,6 +13,17 @@ yadm_is_current=$(yadm fetch --dry-run 2>&1)
 }
 
 ########################################
+# Configure completion
+########################################
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
+
+
+########################################
 # Antigen configuration
 ########################################
 source ${HOME}/antigen.zsh
