@@ -14,12 +14,17 @@ call plug#begin(stdpath('data') . '/plugged')
 " Declare the list of plugins
 "---------------------------------------
 " ui
+Plug 'joshdick/onedark.vim'
 
 " navigation
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'christoomey/vim-tmux-navigator'
 
 " editing
 
 " syntax
+Plug 'sheerun/vim-polyglot'
 
 " LSP
 
@@ -40,7 +45,8 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-syntax enable
+syntax on
+colorscheme onedark
 
 "---------------------------------------
 " Configure indentation
@@ -50,6 +56,8 @@ syntax enable
 "---------------------------------------
 " Configure key mappings
 "---------------------------------------
+" ctrl-p for FZF
+nmap <C-P> :FZF<CR>
 
 
 "---------------------------------------
