@@ -1,7 +1,0 @@
-{
-  "suggest.noselect": false,
-  "coc.preferences.formatOnSaveFiletypes": ["*"],
-  "coc.preferences.formatOnType": true,
-  "eslint.autoFixOnSave": true,
-  "python.jediEnabled": false
-}
