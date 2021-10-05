@@ -7,4 +7,6 @@ if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
 fi
 
 # Configure Rust environment
-. "$HOME/.cargo/env"
+if [[ -d "$HOME/.cargo" ]]; then
+      . "$HOME/.cargo/env"
+fi
