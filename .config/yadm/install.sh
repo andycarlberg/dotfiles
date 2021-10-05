@@ -17,6 +17,10 @@ command_exists() {
 main() {
   detect_system_type
 
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  brew install yadm
+
   yadm clone --bootstrap https://gitlab.com/andycarlberg/dotfiles
 }
 
