@@ -23,4 +23,27 @@ return require('packer').startup(function()
     },
     run = ':TSUpdate',
   }
+
+  -- Search
+  use {
+    {
+      'nvim-telescope/telescope.nvim',
+      requires = {
+        'nvim-lua/popup.nvim',
+        'nvim-lua/plenary.nvim',
+        'telescope-fzf-native.nvim',
+      },
+      wants = {
+        'popup.nvim',
+        'plenary.nvim',
+        'telescope-fzf-native.nvim',
+      },
+      config = [[require('config.telescope')]],
+    },
+    {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      run = 'make',
+    },
+  }
+
 end)
