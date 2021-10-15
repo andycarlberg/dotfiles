@@ -34,9 +34,14 @@ local on_attach = function(client, bufnr)
 end
 
 -- Intelephense (PHP)
-lspconfig.intelephense.setup{
+lspconfig.intelephense.setup {
   init_options = {
     licenceKey = os.getenv("INTELEPHENSE_KEY")
   },
   on_attach = on_attach,
+}
+
+-- TypeScript / JavaScript
+lspconfig.tsserver.setup {
+  on_attach = on_attach
 }
