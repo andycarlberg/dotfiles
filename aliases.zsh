@@ -70,6 +70,7 @@ vagrant-run() {
   [[ $vagrant_command == *\; ]] || vagrant_command="$vagrant_command;"
   vagrant ssh -c $vagrant_command
 }
+alias vrun="vagrant-run"
 
 ########################################
 # Uncategorized aliases
