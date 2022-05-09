@@ -5,5 +5,5 @@
 ### via curl
 
 ```
-sh -c "$(curl -fsSL https://gitlab.com/andycarlberg/dotfiles/-/raw/main/.config/yadm/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/andycarlberg/dotfiles/main/.config/yadm/install.sh)"
 ```
