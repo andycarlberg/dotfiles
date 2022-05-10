@@ -21,7 +21,7 @@ main() {
 
   brew install yadm
 
-  yadm clone --bootstrap https://gitlab.com/andycarlberg/dotfiles
+  yadm clone --bootstrap https://github.com/andycarlberg/dotfiles
 }
 
 if is_root; then
