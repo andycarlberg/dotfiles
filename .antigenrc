@@ -7,6 +7,6 @@ antigen bundle gitfast
 antigen bundle thefuck
 antigen bundle z
 
-antigen theme af-magic
+antigen theme $HOME/oh-my-zsh/custom/themes/af-magic af-magic.zsh-theme --no-local-clone
 
 antigen apply
