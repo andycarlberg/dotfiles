@@ -45,7 +45,7 @@ source $HOME/aliases.zsh
 ########################################
 # neovim configuration
 ########################################
-export EDITOR="nvim"
+export EDITOR="lvim"
 
 # If we are running in a WSL instance
 # Set the DISPLAY variable to trick neovim into thinking there is an X env

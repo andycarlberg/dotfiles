@@ -29,12 +29,8 @@ _list_colors() {
 ########################################
 alias _a=create_alias
 alias colors=_list_colors
-alias vim="nvim"
-
-########################################
-# SSH
-########################################
-alias ssh-keygen-4096="ssh-keygen -t rsa -b 4096 -C"
+alias vim="lvim"
+alias nvim="lvim"
 
 ########################################
 # Drupal
