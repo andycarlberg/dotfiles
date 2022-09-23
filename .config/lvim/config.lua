@@ -66,6 +66,10 @@ lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
 lvim.builtin.dap.active = true
 
+-- Telescope
+-- Allow searching of ignored files.
+lvim.builtin.telescope.pickers.find_files.find_command = { "fd", "--type=file", "--hidden", "--no-ignore", }
+
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
   "bash",
@@ -159,13 +163,20 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- }
 
 -- Additional Plugins
--- lvim.plugins = {
---     {"folke/tokyonight.nvim"},
---     {
---       "folke/trouble.nvim",
---       cmd = "TroubleToggle",
---     },
--- }
+lvim.plugins = {
+  { "MunifTanjim/exrc.nvim",
+    config = function()
+      require("exrc").setup({
+        files = {
+          ".nvimrc.lua",
+          ".nvimrc",
+          ".exrc.lua",
+          ".exrc",
+        },
+      })
+    end,
+  }
+}
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- vim.api.nvim_create_autocmd("BufEnter", {

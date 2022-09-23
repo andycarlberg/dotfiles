@@ -62,9 +62,9 @@ export FZF_BASE="${HOME}/.fzf"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 
 # If silver searcher is installed, use it to find files
-if type ag &> /dev/null; then
-  export FZF_DEFAULT_COMMAND="ag --hidden -p ${DOTFILES}/modules/fzf/.fzf.ignore -f -g \"\""
-  export FZF_CTRL_T_COMMAND="ag --hidden -p ${DOTFILES}/modules/fzf/.fzf.ignore -f -g \"\""
+if type rg &> /dev/null; then
+  export FZF_DEFAULT_COMMAND="rg --files --hidden --glob \"!.git/*\" -u"
+  export FZF_CTRL_T_COMMAND="rg --files --hidden --glob \"!.git/*\" -u"
 fi
 
 # Fix alt-c command on macOS
