@@ -176,7 +176,8 @@ lvim.plugins = {
         },
       })
     end,
-  }
+  },
+  { "alexghergh/nvim-tmux-navigation" }
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
