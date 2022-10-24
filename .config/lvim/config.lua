@@ -26,6 +26,14 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 -- override a default keymapping
 -- lvim.keys.normal_mode["<C-q>"] = ":q<cr>" -- or vim.keymap.set("n", "<C-q>", ":q<cr>" )
 
+-- nvim-tmux-navigation
+lvim.keys.normal_mode["<C-h>"] = "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateLeft()<CR>"
+lvim.keys.normal_mode["<C-j>"] = "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateDown()<CR>"
+lvim.keys.normal_mode["<C-k>"] = "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateUp()<CR>"
+lvim.keys.normal_mode["<C-l>"] = "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateRight()<CR>"
+lvim.keys.normal_mode["<C-\\>"] = "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateLastActive()<CR>"
+lvim.keys.normal_mode["<C-Space>"] = "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateNext()<CR>"
+
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
 -- local _, actions = pcall(require, "telescope.actions")
