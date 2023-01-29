@@ -134,3 +134,5 @@ export SDKMAN_DIR="/home/andycarlberg/.sdkman"
 [ -f ${HOME}/.zshrc.local ] && source ${HOME}/.zshrc.local
 
 
+# Set PATH, MANPATH, etc., for Homebrew.
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
