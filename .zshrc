@@ -43,6 +43,11 @@ source $HOME/aliases.zsh
 }
 
 ########################################
+# enable rtx
+########################################
+eval "$(rtx activate zsh)"                                                                                                                                                         2 ↵ andycarlberg@TECH1034 | [ 9:11AM ]
+
+########################################
 # neovim configuration
 ########################################
 export EDITOR="lvim"
