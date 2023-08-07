@@ -25,6 +25,7 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
 -- lvim.keys.normal_mode["<C-q>"] = ":q<cr>" -- or vim.keymap.set("n", "<C-q>", ":q<cr>" )
+lvim.keys.normal_mode["<Leader>dbc"] = ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>"
 
 -- nvim-tmux-navigation
 lvim.keys.normal_mode["<C-h>"] = "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateLeft()<CR>"
