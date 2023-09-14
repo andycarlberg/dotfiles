@@ -29,44 +29,7 @@ _list_colors() {
 ########################################
 alias _a=create_alias
 alias colors=_list_colors
-alias vim="lvim"
-alias nvim="lvim"
-
-########################################
-# Drupal
-########################################
-alias drupal-nuke="rm -rf vendor composer.lock docroot/core docroot/modules/contrib docroot/profiles/contrib docroot/themes/contrib && composer clearcache && COMPOSER_MEMORY_LIMIT=-1 composer install"
-
-########################################
-# Git
-########################################
-alias gcm="git commit -m"
-alias gcan="git commit --amend --no-edit"
-alias gwhere="git branch"
-alias gwhat="git status"
-alias gs="git status"
-alias ghow="git diff"
-alias gwhen="git log"
-alias gget="git checkout"
-alias ggive="git push"
-alias gadd="git add"
-alias gall="git add ."
-alias gsave="git commit"
-
-########################################
-# Composer
-########################################
-alias hog-composer="COMPOSER_MEMORY_LIMIT=1 composer"
-
-########################################
-# Vagrant
-########################################
-vagrant-run() {
-  vagrant_command="cd /vagrant; ${@}"
-  [[ $vagrant_command == *\; ]] || vagrant_command="$vagrant_command;"
-  vagrant ssh -c $vagrant_command
-}
-alias vrun="vagrant-run"
+alias vim="nvim"
 
 ########################################
 # Uncategorized aliases
