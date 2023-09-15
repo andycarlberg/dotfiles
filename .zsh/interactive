@@ -10,3 +10,8 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.zsh/interactive_p10k ]] || source ~/.zsh/interactive_p10k
+
+# Activate rtx
+eval "$(rtx activate zsh)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
