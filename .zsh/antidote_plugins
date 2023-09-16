@@ -1,1 +1,7 @@
 romkatv/powerlevel10k
+
+# Deferred
+zsh-users/zsh-syntax-highlighting kind:defer
+
+# Final
+zsh-users/zsh-autosuggestions kind:defer

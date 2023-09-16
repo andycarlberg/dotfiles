@@ -8,7 +8,9 @@ fi
 . ~/.shell/interactive
 
 # Install and load Antidote
-[ ! -d "${ZDOTDIR:-~}/.antidote" ] && git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
+if [ ! -d "${HOME}/.antidote" ]; then 
+  git clone --depth=1 https://github.com/mattmc3/antidote.git ${HOME}/.antidote
+fi
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load ${HOME}/.zsh/antidote_plugins
 
@@ -17,5 +19,6 @@ antidote load ${HOME}/.zsh/antidote_plugins
 
 # Activate rtx
 eval "$(rtx activate zsh)"
+
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
