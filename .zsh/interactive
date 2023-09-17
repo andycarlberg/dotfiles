@@ -17,4 +17,5 @@ antidote load ${HOME}/.zsh/antidote_plugins
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.zsh/interactive_p10k ]] || source ~/.zsh/interactive_p10k
 
+# Setup fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
