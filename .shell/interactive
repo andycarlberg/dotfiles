@@ -14,6 +14,9 @@ fi
 # Activate rtx
 type rtx &> /dev/null && eval "$(rtx activate zsh)"
 
+# Activate thefuck
+type fuck &> /dev/null && eval "$(thefuck --alias)"
+
 # Enable linuxbrew
 test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
