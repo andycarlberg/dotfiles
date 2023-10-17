@@ -1,6 +1,5 @@
 return {
   -- Plugins that require no configuration`
-  'dundalek/lazy-lsp.nvim',
 
   {
     -- NOTE: This is where your plugins related to LSP can be installed.
@@ -120,7 +119,8 @@ return {
         php = { 'phpcs', }
       }
 
-      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+      vim.api.nvim_create_autocmd({ "User" }, {
+        pattern = 'FormatterPost',
         callback = function()
           require("lint").try_lint()
         end,
@@ -138,6 +138,12 @@ return {
           }
         },
       }
+
+      local group = vim.api.nvim_create_augroup('FormatAutogroup', { clear = true })
+      vim.api.nvim_create_autocmd('BufWritePre', {
+          group = group,
+          callback = function() vim.cmd('Format') end,
+      })
     end
   },
 }
