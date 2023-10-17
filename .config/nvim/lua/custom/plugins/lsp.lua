@@ -110,88 +110,34 @@ return {
   },
 
   {
-    'jose-elias-alvarez/null-ls.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim',
-    },
+    'mfussenegger/nvim-lint',
     config = function()
-      local null_ls = require("null-ls")
-      local utils = require("null-ls.utils")
-      null_ls.setup({
-        root_dir = utils.root_pattern("composer.json", "package.json", "Makefile", ".git"), -- Add composer
-        diagnostics_format = "#{m} (#{c}) [#{s}]",
-        sources = {
-          null_ls.builtins.diagnostics.phpcs.with({ -- Change how the php linting will work
-            prefer_local = "vendor/bin",
-          }),
-          null_ls.builtins.formatting.phpcbf.with({ -- Use the local installation first
-            prefer_local = "vendor/bin",
-          }),
-        },
-      })
-    end,
-  },
+      -- Use local install of phpcs
+      local phpcs = require('lint').linters.phpcs
+      phpcs.cmd = 'vendor/bin/phpcs'
 
-  {
-    'lukas-reineke/lsp-format.nvim',
-    config = function()
-      require("lsp-format").setup {}
-      
-      vim.cmd [[cabbrev wq execute "Format sync" <bar> wq]]
+      require('lint').linters_by_ft = {
+        php = { 'phpcs', }
+      }
 
-      -- [[ Autoformat config]]
-      -- Switch for controlling whether you want autoformatting.
-      --  Use :AutoformatToggle to toggle autoformatting on or off
-      local format_is_enabled = true
-      vim.api.nvim_create_user_command('AutoformatToggle', function()
-        format_is_enabled = not format_is_enabled
-        print('Setting autoformatting to: ' .. tostring(format_is_enabled))
-      end, {})
-
-      -- Create an augroup that is used for managing our formatting autocmds.
-      --      We need one augroup per client to make sure that multiple clients
-      --      can attach to the same buffer without interfering with each other.
-      local _augroups = {}
-      local get_augroup = function(client)
-        if not _augroups[client.id] then
-          local group_name = 'kickstart-lsp-format-' .. client.name
-          local id = vim.api.nvim_create_augroup(group_name, { clear = true })
-          _augroups[client.id] = id
-        end
-
-        return _augroups[client.id]
-      end
-
-      -- Whenever an LSP attaches to a buffer, we will run this function.
-      --
-      -- See `:help LspAttach` for more information about this autocmd event.
-      vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('kickstart-lsp-attach-format', { clear = true }),
-        -- This is where we attach the autoformatting for reasonable clients
-        callback = function(args)
-          local client_id = args.data.client_id
-          local client = vim.lsp.get_client_by_id(client_id)
-          local bufnr = args.buf
-
-          -- Only attach to clients that support document formatting
-          if not client.server_capabilities.documentFormattingProvider then
-            return
-          end
-
-          -- Create an autocmd that will run *before* we save the buffer.
-          --  Run the formatting command for the LSP that has just attached.
-          vim.api.nvim_create_autocmd('BufWritePre', {
-            group = get_augroup(client),
-            buffer = bufnr,
-            callback = function()
-              if not format_is_enabled then
-                return
-              end
-              require("lsp-format").on_attach(client, bufnr)
-            end,
-          })
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        callback = function()
+          require("lint").try_lint()
         end,
       })
     end
-  }
+  },
+
+  {
+    'mhartington/formatter.nvim',
+    config = function()
+      require("formatter").setup {
+        filetype = {
+          php = {
+            require("formatter.filetypes.php"),
+          }
+        },
+      }
+    end
+  },
 }
