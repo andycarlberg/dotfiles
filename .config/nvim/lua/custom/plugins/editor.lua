@@ -17,8 +17,15 @@ return {
       require("nvim-tree").setup {}
     end,
   },
-  { 
+
+  {
     -- Heuristically set expandtab and shiftwidth
-    "tpope/vim-sleuth" 
+    "tpope/vim-sleuth"
   },
+
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    opts = {} -- this is equalent to setup({}) function
+  }
 }
