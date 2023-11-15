@@ -64,23 +64,6 @@ return {
         end, { desc = 'Format current buffer with LSP' })
       end
 
-      -- Enable the following language servers
-      --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-      --
-      --  Add any additional override configuration in the following tables. They will be passed to
-      --  the `settings` field of the server config. You must look up that documentation yourself.
-      --
-      --  If you want to override the default filetypes that your language server will attach to you can
-      --  define the property 'filetypes' to the map in question.
-      local servers = {
-        lua_ls = {
-          Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-          },
-        },
-      }
-
       -- Setup neovim lua configuration
       require('neodev').setup()
 
@@ -92,7 +75,7 @@ return {
       local mason_lspconfig = require 'mason-lspconfig'
 
       mason_lspconfig.setup {
-        ensure_installed = vim.tbl_keys(servers),
+        automatic_installation = true,
       }
 
       mason_lspconfig.setup_handlers {
@@ -100,8 +83,6 @@ return {
           require('lspconfig')[server_name].setup {
             capabilities = capabilities,
             on_attach = on_attach,
-            settings = servers[server_name],
-            filetypes = (servers[server_name] or {}).filetypes,
           }
         end
       }
@@ -135,14 +116,17 @@ return {
         filetype = {
           php = {
             require("formatter.filetypes.php"),
+          },
+          javascript = {
+            require("formatter.filetypes.javascript"),
           }
         },
       }
 
       local group = vim.api.nvim_create_augroup('FormatAutogroup', { clear = true })
       vim.api.nvim_create_autocmd('BufWritePre', {
-          group = group,
-          callback = function() vim.cmd('Format') end,
+        group = group,
+        callback = function() vim.cmd('Format') end,
       })
     end
   },
