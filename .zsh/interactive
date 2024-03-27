@@ -27,3 +27,7 @@ antidote load ${HOME}/.zsh/antidote_plugins
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+
+
+# Activate rtx
+type mise &> /dev/null && eval "$(mise activate zsh)"
