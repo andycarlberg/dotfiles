@@ -30,6 +30,8 @@ return {
           file_browser = {
             -- disables netrw and use telescope-file-browser in its place
             hijack_netrw = true,
+            hidden = true,
+            no_ignore = true,
           }
         }
       })
