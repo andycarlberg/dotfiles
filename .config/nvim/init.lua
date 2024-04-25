@@ -67,7 +67,19 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
+  {
+    'folke/which-key.nvim',
+    opts = {},
+    config = function()
+      local wk = require("which-key");
+      wk.setup();
+      wk.register({
+        ["<leader>b"] = { name = "+browse" },
+        ["<leader>d"] = { name = "+debug" },
+        ["<leader>s"] = { name = "+search" },
+      })
+    end,
+  },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -132,7 +144,7 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',  opts = {} },
 
   {
     -- Highlight, edit, and navigate code

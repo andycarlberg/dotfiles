@@ -39,11 +39,11 @@ return {
       -- Keymappings
       vim.api.nvim_set_keymap(
         'n',
-        '<space>fb',
+        '<leader>bf',
         ':Telescope file_browser path=%:p:h select_buffer=true<CR>',
         {
           noremap = true,
-          desc = 'Telescope file browser'
+          desc = 'Browse files'
         }
       )
 
