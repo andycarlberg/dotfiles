@@ -25,9 +25,11 @@ return {
       },
     },
     keys = {
-      { '<leader>bf', ':Telescope file_browser path=%:p:h select_buffer=true<CR>', desc = 'Browse files' },
-      { '<leader>ff', ':Telescope find_files<CR>',                                 desc = 'Find files' },
-      { '<leader>ft', ':Telescope live_grep<CR>',                                  desc = 'Find text' },
+      { '<leader>bf', ':Telescope file_browser path=%:p:h select_buffer=true<CR>',                                                desc = 'Browse files' },
+      { '<leader>ff', ':Telescope find_files<CR>',                                                                                desc = 'Find files' },
+      { '<leader>fF', function() require("telescope.builtin").find_files({ hidden = true, no_ignore = true }) end,                desc = 'Find files, all' },
+      { '<leader>ft', ':Telescope live_grep<CR>',                                                                                 desc = 'Find text' },
+      { '<leader>fT', function() require("telescope.builtin").live_grep({ additional_args = { '--hidden', '--no-ignore' } }) end, desc = 'Find text, all' },
     },
     config = function()
       require('telescope').setup({
