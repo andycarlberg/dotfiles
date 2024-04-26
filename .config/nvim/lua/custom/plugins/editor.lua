@@ -24,6 +24,11 @@ return {
         end,
       },
     },
+    keys = {
+      { '<leader>bf', ':Telescope file_browser path=%:p:h select_buffer=true<CR>', desc = 'Browse files' },
+      { '<leader>ff', ':Telescope find_files<CR>',                                 desc = 'Find files' },
+      { '<leader>ft', ':Telescope live_grep<CR>',                                  desc = 'Find text' },
+    },
     config = function()
       require('telescope').setup({
         extensions = {
@@ -35,17 +40,6 @@ return {
           }
         }
       })
-
-      -- Keymappings
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>bf',
-        ':Telescope file_browser path=%:p:h select_buffer=true<CR>',
-        {
-          noremap = true,
-          desc = 'Browse files'
-        }
-      )
 
       require('telescope').load_extension 'file_browser'
       require('telescope').load_extension 'fzf'
