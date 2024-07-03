@@ -31,3 +31,6 @@ antidote load ${HOME}/.zsh/antidote_plugins
 
 # Activate rtx
 type mise &> /dev/null && eval "$(mise activate zsh)"
+
+# Lando
+export PATH="/Users/andycarlberg/.lando/bin${PATH+:$PATH}"; #landopath
