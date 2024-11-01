@@ -12,7 +12,7 @@ if [ -t 0 ]; then
 fi
 
 # Activate rtx
-command -v rtx >/dev/null 2>&1 && eval "$(rtx activate zsh)"
+type rtx &> /dev/null && eval "$(rtx activate zsh)"
 
 # Enable linuxbrew
 test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
