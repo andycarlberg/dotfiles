@@ -11,9 +11,6 @@ if [ -t 0 ]; then
 #    fi
 fi
 
-# Activate rtx
-type rtx &> /dev/null && eval "$(rtx activate zsh)"
-
 # Activate thefuck
 type fuck &> /dev/null && eval "$(thefuck --alias)"
 
