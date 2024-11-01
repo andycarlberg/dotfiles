@@ -106,9 +106,42 @@ return {
           }
         end
       }
+    end,
+  },
+
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+    },
+    config = function()
+      local null_ls = require("null-ls")
+      local utils = require("null-ls.utils")
+      null_ls.setup({
+        root_dir = utils.root_pattern("composer.json", "package.json", "Makefile", ".git"), -- Add composer
+        diagnostics_format = "#{m} (#{c}) [#{s}]",
+        sources = {
+          null_ls.builtins.diagnostics.phpcs.with({ -- Change how the php linting will work
+            prefer_local = "vendor/bin",
+          }),
+          null_ls.builtins.formatting.phpcbf.with({ -- Use the local installation first
+            prefer_local = "vendor/bin",
+          }),
+        },
+      })
+    end,
+  },
+
+  {
+    'lukas-reineke/lsp-format.nvim',
+    config = function()
+      require("lsp-format").setup {}
+      
+      vim.cmd [[cabbrev wq execute "Format sync" <bar> wq]]
+
       -- [[ Autoformat config]]
       -- Switch for controlling whether you want autoformatting.
-      --  Use :KickstartFormatToggle to toggle autoformatting on or off
+      --  Use :AutoformatToggle to toggle autoformatting on or off
       local format_is_enabled = true
       vim.api.nvim_create_user_command('AutoformatToggle', function()
         format_is_enabled = not format_is_enabled
@@ -145,12 +178,6 @@ return {
             return
           end
 
-          -- Tsserver usually works poorly. Sorry you work with bad languages
-          -- You can remove this line if you know what you're doing :)
-          if client.name == 'tsserver' then
-            return
-          end
-
           -- Create an autocmd that will run *before* we save the buffer.
           --  Run the formatting command for the LSP that has just attached.
           vim.api.nvim_create_autocmd('BufWritePre', {
@@ -160,40 +187,11 @@ return {
               if not format_is_enabled then
                 return
               end
-
-              vim.lsp.buf.format {
-                async = false,
-                filter = function(c)
-                  return c.id == client.id
-                end,
-              }
+              require("lsp-format").on_attach(client, bufnr)
             end,
           })
         end,
       })
-    end,
-  },
-
-  {
-    'jose-elias-alvarez/null-ls.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim',
-    },
-    config = function()
-      local null_ls = require("null-ls")
-      local utils = require("null-ls.utils")
-      null_ls.setup({
-        root_dir = utils.root_pattern("composer.json", "package.json", "Makefile", ".git"), -- Add composer
-        diagnostics_format = "#{m} (#{c}) [#{s}]",
-        sources = {
-          null_ls.builtins.diagnostics.phpcs.with({ -- Change how the php linting will work
-            prefer_local = "vendor/bin",
-          }),
-          null_ls.builtins.formatting.phpcbf.with({ -- Use the local installation first
-            prefer_local = "vendor/bin",
-          }),
-        },
-      })
-    end,
-  },
+    end
+  }
 }
