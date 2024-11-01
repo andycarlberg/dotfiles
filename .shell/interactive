@@ -10,3 +10,7 @@ if [ -t 0 ]; then
 #    if [ `tput colors` -ge 8 ]; then
 #    fi
 fi
+
+# Activate rtx
+command -v rtx >/dev/null 2>&1 && eval "$(rtx activate zsh)"
+
