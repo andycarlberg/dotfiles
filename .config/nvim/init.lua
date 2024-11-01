@@ -75,6 +75,7 @@ require('lazy').setup({
       wk.setup();
       wk.register({
         ["<leader>b"] = { name = "+browse" },
+        ["<leader>c"] = { name = "+code" },
         ["<leader>d"] = { name = "+debug" },
         ["<leader>f"] = { name = "+find" },
       })
