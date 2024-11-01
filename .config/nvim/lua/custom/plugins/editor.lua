@@ -24,13 +24,6 @@ return {
         end,
       },
     },
-    keys = {
-      { '<leader>bf', ':Telescope file_browser path=%:p:h select_buffer=true<CR>',                                                desc = 'Browse files' },
-      { '<leader>ff', ':Telescope find_files<CR>',                                                                                desc = 'Find files' },
-      { '<leader>fF', function() require("telescope.builtin").find_files({ hidden = true, no_ignore = true }) end,                desc = 'Find files, all' },
-      { '<leader>ft', ':Telescope live_grep<CR>',                                                                                 desc = 'Find text' },
-      { '<leader>fT', function() require("telescope.builtin").live_grep({ additional_args = { '--hidden', '--no-ignore' } }) end, desc = 'Find text, all' },
-    },
     config = function()
       require('telescope').setup({
         extensions = {
@@ -42,6 +35,17 @@ return {
           }
         }
       })
+
+      vim.keymap.set('n', '<leader>bf', ':Telescope file_browser path=%:p:h select_buffer=true<CR>',
+        { desc = 'Browse files' })
+      vim.keymap.set('n', '<leader>ff', ':Telescope find_files<CR>', { desc = 'Find files' })
+      vim.keymap.set('n', '<leader>fF',
+        function() require("telescope.builtin").find_files({ hidden = true, no_ignore = true }) end,
+        { desc = 'Find files, all' })
+      vim.keymap.set('n', '<leader>ft', ':Telescope live_grep<CR>', { desc = 'Find text' })
+      vim.keymap.set('n', '<leader>fT',
+        function() require("telescope.builtin").live_grep({ additional_args = { '--hidden', '--no-ignore' } }) end,
+        { desc = 'Find text, all' })
 
       require('telescope').load_extension 'file_browser'
       require('telescope').load_extension 'fzf'
