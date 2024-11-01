@@ -1,0 +1,3 @@
+alias _a='create_alias'
+alias vim='nvim'
+alias dotfiles='git --git-dir=${HOME}/.dotfiles --work-tree=${HOME}'
