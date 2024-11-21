@@ -69,15 +69,19 @@ require('lazy').setup({
   -- Useful plugin to show you pending keybinds.
   {
     'folke/which-key.nvim',
+    dependencies = {
+      'echasnovski/mini.icons',
+      'nvim-tree/nvim-web-devicons'
+    },
     opts = {},
     config = function()
       local wk = require("which-key");
       wk.setup();
-      wk.register({
-        ["<leader>b"] = { name = "+browse" },
-        ["<leader>c"] = { name = "+code" },
-        ["<leader>d"] = { name = "+debug" },
-        ["<leader>f"] = { name = "+find" },
+      wk.add({
+        { "<leader>b", group = "browse" },
+        { "<leader>c", group = "code" },
+        { "<leader>d", group = "debug" },
+        { "<leader>f", group = "find" },
       })
     end,
   },
