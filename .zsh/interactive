@@ -27,10 +27,7 @@ antidote load ${HOME}/.zsh/antidote_plugins
 [[ ! -f ~/.zsh/interactive_p10k ]] || source ~/.zsh/interactive_p10k
 
 # Setup fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
-[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
-
+source <(fzf --zsh)
 
 # Activate mise
 type mise &> /dev/null && eval "$(mise activate zsh)"
