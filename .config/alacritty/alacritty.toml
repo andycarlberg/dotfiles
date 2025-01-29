@@ -1,5 +1,5 @@
 [general]
-import = [alacritty_local.toml]
+import = ["alacritty_local.toml"]
 
 [font]
 size = 12.0
