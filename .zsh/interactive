@@ -4,6 +4,9 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt SHARE_HISTORY
 
+# Configure editor
+export EDITOR='nvim'
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -24,12 +27,9 @@ antidote load ${HOME}/.zsh/antidote_plugins
 [[ ! -f ~/.zsh/interactive_p10k ]] || source ~/.zsh/interactive_p10k
 
 # Setup fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
-[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+source <(fzf --zsh)
 
-
-# Activate rtx
+# Activate mise
 type mise &> /dev/null && eval "$(mise activate zsh)"
 
 # Lando
