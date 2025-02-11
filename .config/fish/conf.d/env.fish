@@ -1,6 +1,6 @@
 # Install fisher if it doesn't exist
 if not type -q fisher
-	curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 end
 
 # Set fisher_path to isolate fisher plugins
@@ -12,3 +12,5 @@ set fish_function_path $fish_function_path[1] $fisher_path/functions $fish_funct
 for file in $fisher_path/conf.d/*.fish
     source $file
 end
+
+set -gx EDITOR hx
