@@ -21,7 +21,7 @@ layout {
             tab_active_sync         "#[fg=#9399B2,bg=#181825,bold,italic] {index} {name} <> "
 
 
-            command_clock_command "date"
+            command_clock_command "date +\"%a %b %_d %Y %H:%M %Z\""
             command_clock_format "{stdout}"
             command_clock_rendermode "static"
             command_clock_interval "1"

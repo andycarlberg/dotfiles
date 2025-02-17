@@ -15,7 +15,7 @@ end
 
 # Enable homebrew if installed
 if [ -e /home/linuxbrew/.linuxbrew/bin/brew ]
-	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 end
 
 set -gx EDITOR hx
