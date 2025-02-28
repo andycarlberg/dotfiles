@@ -33,4 +33,7 @@ source <(fzf --zsh)
 type mise &> /dev/null && eval "$(mise activate zsh)"
 
 # Lando
-export PATH="/Users/andycarlberg/.lando/bin${PATH+:$PATH}"; #landopath
+export PATH="${HOME}/.lando/bin${PATH+:$PATH}"; #landopath
+
+# Rancher Desktop
+export PATH="${HOME}/.rd/bin:$PATH"

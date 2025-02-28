@@ -9,3 +9,6 @@
 
 . ~/.bash/env
 . ~/.bash/interactive
+
+# Rancher Desktop
+export PATH="$HOME/.rd/bin:$PATH"

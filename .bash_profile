@@ -20,3 +20,5 @@ if [ "$PS1" ]; then
     . ~/.bash/interactive
 fi
 
+# Rancher Desktop
+export PATH="$HOME/.rd/bin:$PATH"

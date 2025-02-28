@@ -3,6 +3,4 @@
 # the conf.d directory contains files corresponding
 # to the shell state.
 
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-set --export --prepend PATH "/Users/andycarlberg/.rd/bin"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+set --export --prepend PATH "$HOME/.rd/bin"
