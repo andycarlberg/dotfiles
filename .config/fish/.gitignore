@@ -3,3 +3,4 @@ fisher/
 
 # Ignore local config
 fish_variables
+local.fish

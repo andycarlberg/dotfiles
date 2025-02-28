@@ -19,3 +19,8 @@ if [ -e /home/linuxbrew/.linuxbrew/bin/brew ]
 end
 
 set -gx EDITOR hx
+
+# Allow local overrides
+if [ -e $__fish_config_dir/local.fish ]
+    source $__fish_config_dir/local.fish
+end
