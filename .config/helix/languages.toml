@@ -49,3 +49,34 @@ experimental = {}
 problems = { shortenToSingleLine = false }
 workingDirectory = { mode = "auto" }
 # -------------------------------------------------------------------------------
+
+# AstroJS -----------------------------------------------------------------------
+[language-server.astro-ls]
+command = "astro-ls"
+args = [ "--stdio" ]
+
+[[language]]
+name = "astro"
+scope = "source.astro"
+injection-regex = "astro"
+file-types = ["astro"]
+roots = ["package.json", "astro.config.mjs"]
+language-servers = [ "astro-ls" ]
+# -------------------------------------------------------------------------------
+
+# Stylelint -----------------------------------------------------------------------
+[language-server.stylelint-ls]
+command = "stylelint-lsp"
+args = ["--stdio"]
+
+[language-server.stylelint-ls.config.stylelintplus]
+autoFixOnSave = true
+autoFixOnFormat = true
+
+[[language]]
+name = "css"
+file-types = ["css", "scss", "less"]
+language-servers = ["stylelint-ls", "tailwindcss-ls"]
+formatter = { command = 'prettier', args = ["--parser", "css"] }
+auto-format = true
+# -------------------------------------------------------------------------------
