@@ -18,6 +18,11 @@ if [ -e /home/linuxbrew/.linuxbrew/bin/brew ]
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 end
 
+# Activate mise if installed
+if type -q mise
+    mise activate fish | source
+end
+
 set -gx EDITOR hx
 
 # Allow local overrides
