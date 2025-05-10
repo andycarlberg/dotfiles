@@ -23,7 +23,12 @@ if type -q mise
     mise activate fish | source
 end
 
-set -gx EDITOR hx
+# Handle helix name collision
+if command -q helix
+    set -gx EDITOR helix
+else
+    set -gx EDITOR hx
+end
 
 # Allow local overrides
 if [ -e $__fish_config_dir/local.fish ]
