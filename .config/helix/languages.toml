@@ -62,6 +62,7 @@ injection-regex = "astro"
 file-types = ["astro"]
 roots = ["package.json", "astro.config.mjs"]
 language-servers = [ "astro-ls" ]
+formatter = { command = 'prettier', args = ["--stdin-filepath", "file.astro"] }
 # -------------------------------------------------------------------------------
 
 # Stylelint -----------------------------------------------------------------------
