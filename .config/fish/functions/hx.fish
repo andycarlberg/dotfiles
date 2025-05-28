@@ -3,6 +3,6 @@ function hx
     if command -q helix
         helix $argv
     else
-        hx $argv
+        command hx $argv
     end
 end
