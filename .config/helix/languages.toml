@@ -65,7 +65,7 @@ language-servers = [ "astro-ls" ]
 formatter = { command = 'prettier', args = ["--stdin-filepath", "file.astro"] }
 # -------------------------------------------------------------------------------
 
-# Stylelint -----------------------------------------------------------------------
+# Stylelint ---------------------------------------------------------------------
 [language-server.stylelint-ls]
 command = "stylelint-lsp"
 args = ["--stdio"]
@@ -80,4 +80,24 @@ file-types = ["css", "scss", "less"]
 language-servers = ["stylelint-ls", "tailwindcss-ls"]
 formatter = { command = 'prettier', args = ["--parser", "css"] }
 auto-format = true
+# -------------------------------------------------------------------------------
+
+# Liquid ------------------------------------------------------------------------
+[language-server.shopify-theme-check]
+command = "shopify"
+args = ["theme", "language-server"]
+
+# npm install -g @shopify/cli@latest
+[[language]]
+name = "liquid"
+scope = "source.liquid"
+file-types = ["liquid"]
+injection-regex = "^liquid$"
+indent = { tab-width = 2, unit = "  "}
+language-servers = ["shopify-theme-check"]
+block-comment-tokens = { start = "{% comment %}", end = "{% endcomment %}" }
+
+[[grammar]]
+name = "liquid"
+source = { git = "https://github.com/hankthetank27/tree-sitter-liquid", rev = "d6ebde3974742cd1b61b55d1d94aab1dacb41056"}
 # -------------------------------------------------------------------------------
