@@ -50,10 +50,20 @@ problems = { shortenToSingleLine = false }
 workingDirectory = { mode = "auto" }
 # -------------------------------------------------------------------------------
 
+# TailwindCSS -------------------------------------------------------------------
+[language-server.tailwindcss-ls]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+# -------------------------------------------------------------------------------
+
 # AstroJS -----------------------------------------------------------------------
 [language-server.astro-ls]
 command = "astro-ls"
 args = [ "--stdio" ]
+# The path to `tsdk` has to be absolute; relative paths will always be relative
+# to PWD which will vary depending on where helix is opened.
+# see https://github.com/withastro/language-tools/issues/1010
+config = { "typescript" = { "tsdk" = "/home/andyc/.local/share/mise/installs/node/22/lib/node_modules/typescript/lib" }, "environment" = "node" }
 
 [[language]]
 name = "astro"
@@ -61,8 +71,9 @@ scope = "source.astro"
 injection-regex = "astro"
 file-types = ["astro"]
 roots = ["package.json", "astro.config.mjs"]
-language-servers = [ "astro-ls" ]
-formatter = { command = 'prettier', args = ["--stdin-filepath", "file.astro"] }
+language-servers = [ "astro-ls", "tailwindcss-ls" ]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "astro"] }
 # -------------------------------------------------------------------------------
 
 # Stylelint ---------------------------------------------------------------------
