@@ -8,11 +8,6 @@ for file in $fisher_path/conf.d/*.fish
     source $file
 end
 
-# Install fisher if it doesn't exist
-if not type -q fisher
-    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
-end
-
 # Enable homebrew if installed
 if [ -e /home/linuxbrew/.linuxbrew/bin/brew ]
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
