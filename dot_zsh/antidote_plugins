@@ -1,0 +1,8 @@
+romkatv/powerlevel10k
+belak/zsh-utils path:completion
+
+# Deferred
+zsh-users/zsh-syntax-highlighting kind:defer
+
+# Final
+zsh-users/zsh-autosuggestions kind:defer

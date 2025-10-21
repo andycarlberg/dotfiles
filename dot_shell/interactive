@@ -1,0 +1,19 @@
+. ~/.shell/interactive_aliases
+. ~/.shell/interactive_functions
+
+# if in a terminal
+if [ -t 0 ]; then
+    # other users shouldn't be able to message by default
+    mesg n
+
+    # enable colours
+#    if [ `tput colors` -ge 8 ]; then
+#    fi
+fi
+
+# Activate thefuck
+type fuck &> /dev/null && eval "$(thefuck --alias)"
+
+# Enable linuxbrew
+test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
