@@ -1,0 +1,16 @@
+alias _a='create_alias'
+alias vim='nvim'
+alias dotfiles='git --git-dir=${HOME}/.dotfiles --work-tree=${HOME}'
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gd="git diff"
+alias robo="vendor/bin/robo"
+alias drush="vendor/bin/drush"
+alias gpsup="git push -u origin HEAD"
+alias gcb="git checkout -b"
+alias gp="git push"
+alias gpf="git push -f"
+alias gw="git switch"
+alias gwc="git switch -c"
+alias gcan="git commit --amend --no-edit"
