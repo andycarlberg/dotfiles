@@ -1,0 +1,26 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+
+{{ if eq .chezmoi.osRelease.id "cachyos" -}}
+
+{{ $pacman := "" -}}
+{{ range .packages.arch.pacman -}}
+{{ $pacman = printf "%s %s" $pacman (. | quote) -}}
+{{ end -}}
+sudo pacman -Sy {{ $pacman }}
+
+{{ $paru := "" -}}
+{{ range .packages.arch.paru -}}
+{{ $paru = printf "%s %s" $paru (. | quote) -}}
+{{ end -}}
+paru -Sy {{ $paru }}
+
+{{ $brew := "" -}}
+{{ range .packages.arch.brew -}}
+{{ $brew = printf "%s %s" $brew (. | quote) -}}
+{{ end -}}
+brew install {{ $brew }}
+
+{{ end -}}
+
+{{ end -}}
