@@ -7,19 +7,23 @@
 {{ range .packages.arch.pacman -}}
 {{ $pacman = printf "%s %s" $pacman (. | quote) -}}
 {{ end -}}
-sudo pacman -Sy {{ $pacman }}
+sudo pacman -Sy --needed {{ $pacman }}
 
 {{ $paru := "" -}}
 {{ range .packages.arch.paru -}}
 {{ $paru = printf "%s %s" $paru (. | quote) -}}
 {{ end -}}
-paru -Sy {{ $paru }}
+paru -Sy --needed {{ $paru }}
 
 {{ $brew := "" -}}
 {{ range .packages.arch.brew -}}
 {{ $brew = printf "%s %s" $brew (. | quote) -}}
 {{ end -}}
-brew install {{ $brew }}
+if command -v brew; then
+	brew install {{ $brew }}
+else 
+	echo "Homebrew is not available. Install or configure it and then run 'chezmoi apply'."
+fi
 
 {{ end -}}
 
