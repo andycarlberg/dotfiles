@@ -1,0 +1,58 @@
+format = """\
+$username\
+$hostname \
+$directory\
+$git_branch \
+$git_commit\
+$git_state\
+$git_status\
+$git_metrics
+$shell\
+$character
+"""
+
+right_format ="""\
+$cmd_duration \
+$time
+"""
+
+add_newline = true
+
+[cmd_duration]
+format = '[$duration]($style)'
+min_time = 0
+style = 'bold blue'
+
+[directory]
+truncation_symbol = '..'
+truncate_to_repo = false
+read_only = " 󰌾"
+
+[git_branch]
+format = '$symbol($style) [$branch(:$remote_branch)]($style)'
+symbol = ""
+
+[git_commit]
+only_detached = false
+tag_disabled = false
+tag_symbol = '  '
+
+[git_metrics]
+disabled = false
+
+[hostname]
+format = '[$ssh_symbol$hostname]($style)'
+ssh_only = false
+trim_at = ''
+
+[shell]
+disabled = false
+fish_indicator = '󰈺'
+
+[time]
+format = '[$time]($style)'
+disabled = false
+
+[username]
+format = '[$user]($style)@'
+show_always = true
