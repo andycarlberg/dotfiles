@@ -1,0 +1,18 @@
+packages:
+  arch:
+    pacman:
+      - ttf-hack-nerd
+      - starship
+      - base-devel
+      - helix
+      - zellij
+      - ripgrep
+    paru:
+      - check-broken-packages-pacman-hook-git
+      - pacdiff-pacman-hook-git
+      - reflector-pacman-hook-git
+      - sync-pacman-hook-git
+    brew:
+      - mise
+      - fzf
+      - gcc
