@@ -1,118 +1,31 @@
-# JAVASCRIPT ------------------------------------------------------------------
+[language-server.typescript-language-server]
+command = "npx"
+args = ["typescript-language-server", "--stdio"]
+
 [[language]]
 name = "javascript"
-language-servers = ["typescript-language-server", "eslint"]
+language-servers = ["typescript-language-server"]
 auto-format = true
 formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
 
 [[language]]
 name = "jsx"
-language-servers = [
-  "typescript-language-server",
-  "eslint"
-]
+language-servers = ["typescript-language-server"]
 auto-format = true
 formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
-# ------------------------------------------------------------------------------
 
-# TYPESCRIPT -----------------------------------------------------------------
 [[language]]
 name = "typescript"
-language-servers = ["typescript-language-server", "eslint"]
+language-servers = ["typescript-language-server"]
 auto-format = true
 formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
 
 [[language]]
 name = "tsx"
-language-servers = [
-  "typescript-language-server",
-  "eslint"
-]
+language-servers = ["typescript-language-server"]
 auto-format = true
 formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
-# -----------------------------------------------------------------------------
 
-# ESLint ----------------------------------------------------------------------
-[language-server.eslint]
-args = ["--stdio"]
-command = "vscode-eslint-language-server"
-
-[language-server.eslint.config]
-format = true
-nodePath = ""
-onIgnoredFiles = "off"
-packageManager = "yarn"
-quiet = false
-rulesCustomizations = []
-run = "onType"
-useESLintClass = false
-validate = "on"
-codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = true } }
-codeActionOnSave = { mode = "all" }
-experimental = {}
-problems = { shortenToSingleLine = false }
-workingDirectory = { mode = "auto" }
-# -------------------------------------------------------------------------------
-
-# TailwindCSS -------------------------------------------------------------------
-[language-server.tailwindcss-ls]
-command = "tailwindcss-language-server"
-args = ["--stdio"]
-# -------------------------------------------------------------------------------
-
-# AstroJS -----------------------------------------------------------------------
 [language-server.astro-ls]
-command = "astro-ls"
-args = [ "--stdio" ]
-# The path to `tsdk` has to be absolute; relative paths will always be relative
-# to PWD which will vary depending on where helix is opened.
-# see https://github.com/withastro/language-tools/issues/1010
-config = { "typescript" = { "tsdk" = "/home/andyc/.local/share/mise/installs/node/22/lib/node_modules/typescript/lib" }, "environment" = "node" }
-
-[[language]]
-name = "astro"
-scope = "source.astro"
-injection-regex = "astro"
-file-types = ["astro"]
-roots = ["package.json", "astro.config.mjs"]
-language-servers = [ "astro-ls", "tailwindcss-ls" ]
-auto-format = true
-formatter = { command = "prettier", args = ["--parser", "astro"] }
-# -------------------------------------------------------------------------------
-
-# Stylelint ---------------------------------------------------------------------
-[language-server.stylelint-ls]
-command = "stylelint-lsp"
-args = ["--stdio"]
-
-[language-server.stylelint-ls.config.stylelintplus]
-autoFixOnSave = true
-autoFixOnFormat = true
-
-[[language]]
-name = "css"
-file-types = ["css", "scss", "less"]
-language-servers = ["stylelint-ls", "tailwindcss-ls"]
-formatter = { command = 'prettier', args = ["--parser", "css"] }
-auto-format = true
-# -------------------------------------------------------------------------------
-
-# Liquid ------------------------------------------------------------------------
-[language-server.shopify-theme-check]
-command = "shopify"
-args = ["theme", "language-server"]
-
-# npm install -g @shopify/cli@latest
-[[language]]
-name = "liquid"
-scope = "source.liquid"
-file-types = ["liquid"]
-injection-regex = "^liquid$"
-indent = { tab-width = 2, unit = "  "}
-language-servers = ["shopify-theme-check"]
-block-comment-tokens = { start = "{% comment %}", end = "{% endcomment %}" }
-
-[[grammar]]
-name = "liquid"
-source = { git = "https://github.com/hankthetank27/tree-sitter-liquid", rev = "d6ebde3974742cd1b61b55d1d94aab1dacb41056"}
-# -------------------------------------------------------------------------------
+command = "npx"
+args = ["astro-ls", "--stdio"]
