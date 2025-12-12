@@ -1,31 +1,40 @@
-[language-server.typescript-language-server]
+## --- Language Servers ---
+ 
+[language-server.biome]
 command = "npx"
-args = ["typescript-language-server", "--stdio"]
-
-[[language]]
-name = "javascript"
-language-servers = ["typescript-language-server"]
-auto-format = true
-formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
-
-[[language]]
-name = "jsx"
-language-servers = ["typescript-language-server"]
-auto-format = true
-formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
-
-[[language]]
-name = "typescript"
-language-servers = ["typescript-language-server"]
-auto-format = true
-formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
-
-[[language]]
-name = "tsx"
-language-servers = ["typescript-language-server"]
-auto-format = true
-formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
+args = ["@biomejs/biome", "lsp-proxy"] 
 
 [language-server.astro-ls]
 command = "npx"
 args = ["astro-ls", "--stdio"]
+
+[language-server.typescript-language-server]
+command = "npx"
+args = ["typescript-language-server", "--stdio"]
+
+
+## --- LANGUAGE CONFIGURATIONS ---
+
+[[language]]
+name = "javascript"
+auto-format = true
+language-servers = [
+    "typescript-language-server", 
+    "biome",
+]
+
+[[language]]
+name = "typescript"
+auto-format = true
+language-servers = [
+    "typescript-language-server",
+    "biome",
+]
+
+[[language]]
+name = "astro"
+auto-format = true
+language-servers = [
+    "astro-ls",
+    "biome",
+]
