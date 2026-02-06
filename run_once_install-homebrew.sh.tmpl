@@ -1,11 +1,21 @@
 #!/bin/bash
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Install Homebrew if it isn't already there
+if ! command -v brew &> /dev/null; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
 
-# enable homebrew for the current session
+# Enable homebrew for the current session based on OS and architecture
 {{ if eq .chezmoi.os "linux" -}}
-test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
-test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+[ -d ~/.linuxbrew ] && eval "$(~/.linuxbrew/bin/brew shellenv)"
+[ -d /home/linuxbrew/.linuxbrew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{ else if eq .chezmoi.os "darwin" -}}
-test -d /opt/homebrew/ && eval "$(/opt/homebrew/bin/brew shellenv)"
+# Determine if we need to use fish or bash syntax for shellenv
+SHELL_TYPE=$(basename "$SHELL")
+
+if [ -d /opt/homebrew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv $SHELL_TYPE)"
+elif [ -d /usr/local/bin/brew ]; then
+    eval "$(/usr/local/bin/brew shellenv $SHELL_TYPE)"
+fi
 {{ end -}}
