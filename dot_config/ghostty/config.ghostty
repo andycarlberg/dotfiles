@@ -5,4 +5,4 @@ font-family = "Hack Nerd Font Mono"
 font-size = 12
 
 # Optional: Tweak performance/rendering (example)
-font-thicker = true
+font-thicken = true

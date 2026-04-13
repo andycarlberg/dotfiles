@@ -6,7 +6,12 @@ if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ] || grep -q Microsoft /proc/version
     is_wsl=true
 fi
 
-{{- $is_wsl := contains "microsoft" .chezmoi.kernel.osrelease }}
+{{ $is_wsl := false -}}
+{{ if eq .chezmoi.os "linux" -}}
+  {{- if contains "microsoft" .chezmoi.kernel.osrelease -}}
+    {{- $is_wsl = true -}}
+  {{- end -}}
+{{- end -}}
 
 # Try to find brew to bootstrap path
 if [ -f "/opt/homebrew/bin/brew" ]; then
