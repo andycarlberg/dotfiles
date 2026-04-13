@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# This script ensures that the chezmoi source directory uses the correct 
+# SSH remote URL, accounting for personal SSH host aliases on work machines.
+
+# Handle the case where github_ssh_host might change
+# {{ .github_ssh_host }}
+
+set -e
+
+# Only proceed if the source directory is a git repository
+if [ ! -d "{{ .chezmoi.sourceDir }}/.git" ]; then
+  exit 0
+fi
+
+cd "{{ .chezmoi.sourceDir }}"
+CURRENT_URL=$(git remote get-url origin 2>/dev/null || echo "")
+
+if [ -z "$CURRENT_URL" ]; then
+  exit 0
+fi
+
+# 1. Convert HTTPS to SSH if needed
+# 2. Update SSH host alias if it differs from .github_ssh_host
+NEW_URL="$CURRENT_URL"
+
+if echo "$CURRENT_URL" | grep -q "https://github.com/"; then
+    NEW_URL=$(echo "$CURRENT_URL" | sed "s|https://github.com/|git@{{ .github_ssh_host }}:|")
+elif echo "$CURRENT_URL" | grep -q "git@github.com:"; then
+    NEW_URL=$(echo "$CURRENT_URL" | sed "s|git@github.com:|git@{{ .github_ssh_host }}:|")
+elif echo "$CURRENT_URL" | grep -q "git@"; then
+    # If it's already an SSH URL with a custom alias, ensure it matches the current config
+    # This captures git@ANY_HOST:org/repo.git
+    BASE_URL=$(echo "$CURRENT_URL" | sed -E 's|git@[^:]+:|git@{{ .github_ssh_host }}:|')
+    NEW_URL="$BASE_URL"
+fi
+
+if [ "$CURRENT_URL" != "$NEW_URL" ]; then
+  echo "Updating chezmoi source remote: $CURRENT_URL -> $NEW_URL"
+  git remote set-url origin "$NEW_URL"
+fi

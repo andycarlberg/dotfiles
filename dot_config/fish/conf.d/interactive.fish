@@ -1,5 +1,10 @@
 if status is-interactive
 
+    # Source POSIX-compliant aliases and functions
+    if type -q posix_source
+        posix_source ~/.shell/interactive_aliases
+    end
+
     if type -q starship
         starship init fish | source
     end

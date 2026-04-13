@@ -1,12 +1,36 @@
-# We need to set $ENV so that if you use shell X as your login shell,
-# and then start "sh" as a non-login interactive shell the startup scripts will
-# correctly run.
-export ENV=~/.sh/interactive
+# Entry point for environment variables across all POSIX shells
+# (Bash, Zsh, Sh)
 
-# We also need to set BASH_ENV, which is run for *non-interactive* shells.
-# (unlike $ENV, which is for interactive shells)
+# Ensure PATH is bootstrapped correctly
+. ~/.shell/env_functions
+. ~/.shell/common_paths
+
+# Preferred programs
+export EDITOR='nvim'
+export VISUAL='nvim'
+export PAGER='less'
+
+# Language
+export LANG='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
+
+# Enable Homebrew environment
+if [ -d /home/linuxbrew/.linuxbrew ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [ -d ~/.linuxbrew ]; then
+    eval "$(~/.linuxbrew/bin/brew shellenv)"
+elif [ -d /opt/homebrew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Activate mise (managed tool versions)
+if command -v mise >/dev/null 2>&1; then
+    eval "$(mise activate sh)"
+fi
+
+# Legacy env/bash_env support
+export ENV=~/.sh/interactive
 export BASH_ENV=~/.bash/env
 
-. ~/.shell/env_functions
-
+# Allow local machine-specific overrides
 ssource ~/.shell/env_local

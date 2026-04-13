@@ -1,7 +1,10 @@
 [user]
 	email = {{ .email | quote }}
-	name = Andy Carlberg
+	name = {{ .name | quote }}
 [init]
 	defaultBranch = main
 [pull]
 	rebase = true
+{{- if .is_work }}
+# Potential work-specific settings (e.g., commit signing, different SSH key)
+{{- end }}

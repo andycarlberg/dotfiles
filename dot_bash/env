@@ -1,2 +1,2 @@
-# WARNING: this will $BASH_ENV to get a correct startup sequence
+# WARNING: this will use $BASH_ENV to get a correct startup sequence
 . ~/.shell/env

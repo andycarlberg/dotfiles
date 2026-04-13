@@ -1,18 +1,35 @@
 packages:
-  arch:
-    pacman:
-      - ttf-hack-nerd
-      - starship
-      - base-devel
-      - helix
-      - zellij
-      - ripgrep
-    paru:
-      - check-broken-packages-pacman-hook-git
-      - pacdiff-pacman-hook-git
-      - reflector-pacman-hook-git
-      - sync-pacman-hook-git
+  common:
+    - starship
+    - helix
+    - zellij
+    - ripgrep
+    - fzf
+    - mise
+    - yazi
+  linux:
+    arch:
+      pacman:
+        - ttf-hack-nerd
+        - base-devel
+        - ghostty
+      paru:
+        - check-broken-packages-pacman-hook-git
+        - pacdiff-pacman-hook-git
+        - reflector-pacman-hook-git
+        - sync-pacman-hook-git
+    debian:
+      apt:
+        - build-essential
+        - curl
+        - git
+  darwin:
     brew:
-      - mise
-      - fzf
       - gcc
+    casks:
+      - ghostty
+
+paths:
+  - .local/bin
+  - .rd/bin
+  - .lando/bin
