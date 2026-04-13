@@ -1,30 +1,87 @@
-{{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 
-{{ if eq .chezmoi.osRelease.id "cachyos" -}}
+# detect-wsl
+is_wsl=false
+if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ] || grep -q Microsoft /proc/version; then
+    is_wsl=true
+fi
 
-{{ $pacman := "" -}}
-{{ range .packages.arch.pacman -}}
-{{ $pacman = printf "%s %s" $pacman (. | quote) -}}
+{{- $is_wsl := contains "microsoft" .chezmoi.kernel.osrelease }}
+
+# Try to find brew to bootstrap path
+if [ -f "/opt/homebrew/bin/brew" ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -f "/usr/local/bin/brew" ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+elif [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [ -f "$HOME/.linuxbrew/bin/brew" ]; then
+    eval "$("$HOME/.linuxbrew/bin/brew" shellenv)"
+fi
+
+{{ if eq .chezmoi.os "linux" -}}
+
+{{ if eq .chezmoi.osRelease.id "cachyos" "arch" -}}
+# Arch-based logic
+{{ $pacman := .packages.linux.arch.pacman -}}
+{{ $common := .packages.common -}}
+{{ $all_pacman := concat $pacman $common -}}
+
+{{ $pacman_cmd := "" -}}
+{{ range $all_pacman -}}
+  {{- if and (eq . "ghostty") $is_wsl -}}
+    {{/* Skip ghostty on WSL */}}
+  {{- else -}}
+    {{ $pacman_cmd = printf "%s %s" $pacman_cmd (. | quote) -}}
+  {{- end -}}
 {{ end -}}
-sudo pacman -Sy --needed {{ $pacman }}
+sudo pacman -Sy --needed {{ $pacman_cmd }}
 
 {{ $paru := "" -}}
-{{ range .packages.arch.paru -}}
+{{ range .packages.linux.arch.paru -}}
 {{ $paru = printf "%s %s" $paru (. | quote) -}}
 {{ end -}}
 paru -Sy --needed {{ $paru }}
 
-{{ $brew := "" -}}
-{{ range .packages.arch.brew -}}
-{{ $brew = printf "%s %s" $brew (. | quote) -}}
+{{ else if eq .chezmoi.osRelease.id "debian" "ubuntu" -}}
+# Debian/Ubuntu logic
+{{ $apt := .packages.linux.debian.apt -}}
+{{ $common := .packages.common -}}
+{{ $all_apt := concat $apt $common -}}
+
+{{ $apt_cmd := "" -}}
+{{ range $all_apt -}}
+  {{- if eq . "ghostty" -}}
+    # Ghostty skip (needs custom handling for Debian)
+  {{- else -}}
+    {{ $apt_cmd = printf "%s %s" $apt_cmd (. | quote) -}}
+  {{- end -}}
 {{ end -}}
-if command -v brew; then
-	brew install {{ $brew }}
-else 
-	echo "Homebrew is not available. Install or configure it and then run 'chezmoi apply'."
-fi
+sudo apt-get update
+sudo apt-get install -y {{ $apt_cmd }}
 
 {{ end -}}
+
+{{ else if eq .chezmoi.os "darwin" -}}
+# macOS logic
+{{ $brew := .packages.darwin.brew -}}
+{{ $common := .packages.common -}}
+{{ $all_brew := concat $brew $common -}}
+
+{{ $brew_cmd := "" -}}
+{{ range $all_brew -}}
+{{ $brew_cmd = printf "%s %s" $brew_cmd (. | quote) -}}
+{{ end -}}
+if command -v brew >/dev/null 2>&1; then
+    brew install {{ $brew_cmd }}
+fi
+
+{{ $casks := "" -}}
+{{ range .packages.darwin.casks -}}
+{{ $casks = printf "%s %s" $casks (. | quote) -}}
+{{ end -}}
+if command -v brew >/dev/null 2>&1; then
+    brew install --cask {{ $casks }}
+fi
 
 {{ end -}}

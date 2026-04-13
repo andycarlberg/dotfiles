@@ -1,21 +1,25 @@
 #!/bin/bash
 
+# Define the expected brew binary path based on OS and architecture
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [[ "$(uname -m)" == "arm64" ]]; then
+        BREW_BIN="/opt/homebrew/bin/brew"
+    else
+        BREW_BIN="/usr/local/bin/brew"
+    fi
+else
+    # Linux (both /home/linuxbrew and ~/.linuxbrew)
+    BREW_BIN="/home/linuxbrew/.linuxbrew/bin/brew"
+    [[ ! -f "$BREW_BIN" ]] && BREW_BIN="$HOME/.linuxbrew/bin/brew"
+fi
+
 # Install Homebrew if it isn't already there
-if ! command -v brew &> /dev/null; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if ! command -v brew &> /dev/null && [[ ! -f "$BREW_BIN" ]]; then
+    echo "Installing Homebrew..."
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# Enable homebrew for the current session based on OS and architecture
-{{ if eq .chezmoi.os "linux" -}}
-[ -d ~/.linuxbrew ] && eval "$(~/.linuxbrew/bin/brew shellenv)"
-[ -d /home/linuxbrew/.linuxbrew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-{{ else if eq .chezmoi.os "darwin" -}}
-# Determine if we need to use fish or bash syntax for shellenv
-SHELL_TYPE=$(basename "$SHELL")
-
-if [ -d /opt/homebrew ]; then
-    eval "$(/opt/homebrew/bin/brew shellenv $SHELL_TYPE)"
-elif [ -d /usr/local/bin/brew ]; then
-    eval "$(/usr/local/bin/brew shellenv $SHELL_TYPE)"
+# Bootstrap the current script's environment
+if [[ -f "$BREW_BIN" ]]; then
+    eval "$($BREW_BIN shellenv)"
 fi
-{{ end -}}
