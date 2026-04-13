@@ -25,7 +25,12 @@ fi
 
 # Activate mise (managed tool versions)
 if command -v mise >/dev/null 2>&1; then
-    eval "$(mise activate sh)"
+    if [ -n "$BASH_VERSION" ]; then
+        eval "$(mise activate bash)"
+    elif [ -n "$ZSH_VERSION" ]; then
+        eval "$(mise activate zsh)"
+    fi
+    # If neither, we're likely in a basic POSIX sh or something else mise doesn't support directly
 fi
 
 # Legacy env/bash_env support
