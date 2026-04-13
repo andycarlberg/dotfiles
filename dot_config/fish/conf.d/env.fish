@@ -25,6 +25,9 @@ else
     set -gx EDITOR hx
 end
 
+# Make sure we have .local/bin in PATH
+fish_add_path ~/.local/bin
+
 # Allow local overrides
 if [ -e $__fish_config_dir/local.fish ]
     source $__fish_config_dir/local.fish
