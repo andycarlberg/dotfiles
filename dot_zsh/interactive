@@ -1,15 +1,13 @@
+# Ensure environment is loaded (important for macOS or non-login shells)
+[[ -f ~/.shell/env ]] && . ~/.shell/env
+
 # Configure history
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt SHARE_HISTORY
 
-# Configure editor
-export EDITOR='nvim'
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# Enable Powerlevel10k instant prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -29,11 +27,5 @@ antidote load ${HOME}/.zsh/antidote_plugins
 # Setup fzf
 source <(fzf --zsh)
 
-# Activate mise
+# Activate mise hooks (if any, environment was set in .shell/env)
 type mise &> /dev/null && eval "$(mise activate zsh)"
-
-# Lando
-export PATH="${HOME}/.lando/bin${PATH+:$PATH}"; #landopath
-
-# Rancher Desktop
-export PATH="${HOME}/.rd/bin:$PATH"

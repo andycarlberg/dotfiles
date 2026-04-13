@@ -1,19 +1,14 @@
+# Source shared aliases and functions
 . ~/.shell/interactive_aliases
 . ~/.shell/interactive_functions
 
-# if in a terminal
+# Basic interactive settings
 if [ -t 0 ]; then
-    # other users shouldn't be able to message by default
-    mesg n
-
-    # enable colours
-#    if [ `tput colors` -ge 8 ]; then
-#    fi
+    # Prevent other users from messaging by default
+    mesg n 2>/dev/null
 fi
 
-# Activate thefuck
-type fuck &> /dev/null && eval "$(thefuck --alias)"
-
-# Enable linuxbrew
-test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
-test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# Activate thefuck (if installed)
+if command -v fuck >/dev/null 2>&1; then
+    eval "$(thefuck --alias)"
+fi

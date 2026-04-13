@@ -1,2 +1,14 @@
+{{- $email := promptStringOnce . "email" "What is your email address" -}}
+{{- $name := promptStringOnce . "name" "What is your full name" "Andy Carlberg" -}}
+{{- $is_work := promptBoolOnce . "is_work" "Is this a work machine" false -}}
+
+{{- $github_ssh_host := "github.com" -}}
+{{- if $is_work -}}
+{{-   $github_ssh_host = promptStringOnce . "github_ssh_host" "SSH host for personal GitHub (e.g. github.com-personal)" "github.com" -}}
+{{- end -}}
+
 [data]
-	email = {{ promptStringOnce . "email" "What is your email address" | quote }}
+    email = {{ $email | quote }}
+    name = {{ $name | quote }}
+    is_work = {{ $is_work }}
+    github_ssh_host = {{ $github_ssh_host | quote }}

@@ -1,0 +1,4 @@
+# Shared paths managed by chezmoi
+{{ range .paths -}}
+[ -d "$HOME/{{ . }}" ] && pathprepend "$HOME/{{ . }}"
+{{ end -}}
