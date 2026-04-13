@@ -1,0 +1,8 @@
+# Primary font family
+font-family = "Hack Nerd Font Mono"
+
+# Optional: Set font size (default is 13 on macOS, 12 on Linux)
+font-size = 12
+
+# Optional: Tweak performance/rendering (example)
+font-thicker = true
