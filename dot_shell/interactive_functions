@@ -7,6 +7,6 @@ create_alias() {
   shift
 
   alias "${NEW_ALIAS}"="$(echo ${@})"
-  echo "alias ${NEW_ALIAS}=\"${@}\"" >> ${HOME}/.shell/interactive_aliases
+  echo "alias ${NEW_ALIAS}=\"${@}\"" >> $HOME/.shell/interactive_aliases
 }
 
