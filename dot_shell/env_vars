@@ -1,0 +1,8 @@
+export EDITOR='hx'
+export VISUAL='hx'
+export PAGER='bat'
+export BAT_PAGER='less -RF'
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT='-c'
+export LANG='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'

@@ -5,32 +5,28 @@
 . ~/.shell/env_functions
 . ~/.shell/common_paths
 
-# Preferred programs
-export EDITOR='nvim'
-export VISUAL='nvim'
-export PAGER='less'
-
-# Language
-export LANG='en_US.UTF-8'
-export LC_ALL='en_US.UTF-8'
+# Shared env vars (editor, pager, locale) — also sourced by fish via posix_source
+. ~/.shell/env_vars
 
 # Enable Homebrew environment
-if [ -d /home/linuxbrew/.linuxbrew ]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-elif [ -d ~/.linuxbrew ]; then
-    eval "$(~/.linuxbrew/bin/brew shellenv)"
-elif [ -d /opt/homebrew ]; then
+if [ -f "/opt/homebrew/bin/brew" ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -f "/usr/local/bin/brew" ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+elif [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [ -f "$HOME/.linuxbrew/bin/brew" ]; then
+    eval "$($HOME/.linuxbrew/bin/brew shellenv)"
 fi
 
-# Activate mise (managed tool versions)
-if command -v mise >/dev/null 2>&1; then
+# Activate mise (managed tool versions).
+# Guard on MISE_SHELL so this is a no-op if already activated (e.g. sourced twice via .zshenv + .zshrc).
+if command -v mise >/dev/null 2>&1 && [ -z "${MISE_SHELL-}" ]; then
     if [ -n "$BASH_VERSION" ]; then
         eval "$(mise activate bash)"
     elif [ -n "$ZSH_VERSION" ]; then
         eval "$(mise activate zsh)"
     fi
-    # If neither, we're likely in a basic POSIX sh or something else mise doesn't support directly
 fi
 
 # Legacy env/bash_env support

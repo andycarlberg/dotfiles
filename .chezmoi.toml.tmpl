@@ -7,8 +7,13 @@
 {{-   $github_ssh_host = promptStringOnce . "github_ssh_host" "SSH host for personal GitHub (e.g. github.com-personal)" "github.com" -}}
 {{- end -}}
 
+{{- $install_packages := promptBoolOnce . "install_packages" "Install packages and tools (skip for config-only setup)" true -}}
+{{- $set_default_shell := promptBoolOnce . "set_default_shell" "Set fish as the default shell" true -}}
+
 [data]
     email = {{ $email | quote }}
     name = {{ $name | quote }}
     is_work = {{ $is_work }}
     github_ssh_host = {{ $github_ssh_host | quote }}
+    install_packages = {{ $install_packages }}
+    set_default_shell = {{ $set_default_shell }}

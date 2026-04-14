@@ -11,7 +11,15 @@ layout {
 
             hide_frame_for_single_pane "true"
 
-            mode_normal  "#[bg=blue] {name} #[fg=blue,bg=#181825]"
+            mode_normal   "#[bg=blue] {name} #[fg=blue,bg=#181825]"
+            mode_locked   "#[bg=#45475a] {name} #[fg=#45475a,bg=#181825]"
+            mode_pane     "#[bg=#a6e3a1] {name} #[fg=#a6e3a1,bg=#181825]"
+            mode_tab      "#[bg=#89b4fa] {name} #[fg=#89b4fa,bg=#181825]"
+            mode_resize   "#[bg=#fab387] {name} #[fg=#fab387,bg=#181825]"
+            mode_move     "#[bg=#f9e2af] {name} #[fg=#f9e2af,bg=#181825]"
+            mode_scroll   "#[bg=#cba6f7] {name} #[fg=#cba6f7,bg=#181825]"
+            mode_search   "#[bg=#f38ba8] {name} #[fg=#f38ba8,bg=#181825]"
+            mode_session  "#[bg=#94e2d5] {name} #[fg=#94e2d5,bg=#181825]"
 
             tab_normal              "#[fg=#181825,bg=#4C4C59] #[fg=#000000,bg=#4C4C59]{index}  {name} #[fg=#4C4C59,bg=#181825]"
             tab_normal_fullscreen   "#[fg=#6C7086,bg=#181825] {index} {name} [] "
