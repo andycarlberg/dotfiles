@@ -1,5 +1,11 @@
 if status is-interactive
 
+    # Auto-attach to (or create) a Zellij session when opening a terminal
+    # Run `touch ~/.no_zellij` to disable; `rm ~/.no_zellij` to re-enable
+    if not test -e ~/.no_zellij; and type -q zellij; and not set -q ZELLIJ
+        zellij attach --create main
+    end
+
     # Source POSIX-compliant aliases and functions
     if type -q posix_source
         posix_source ~/.shell/interactive_aliases

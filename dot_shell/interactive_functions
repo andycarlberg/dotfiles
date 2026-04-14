@@ -1,12 +1,19 @@
-# Usage: create_alias <command>
+# Usage: create_alias <alias_name> <command...>
 create_alias() {
-  # Capture the new alias
   NEW_ALIAS="${1}"
-  # Remove the new alias from the arguments, leaving the command to be aliased
-  # This removes the need for quotes aroung multi-part commands like "git add"
   shift
+  alias "${NEW_ALIAS}"="$*"
+  echo "alias ${NEW_ALIAS}=\"$*\"" >> "$HOME/.shell/interactive_aliases"
+}
 
-  alias "${NEW_ALIAS}"="$(echo ${@})"
-  echo "alias ${NEW_ALIAS}=\"${@}\"" >> $HOME/.shell/interactive_aliases
+# Open yazi and cd to the directory on exit
+y() {
+  local tmp
+  tmp=$(mktemp -t "yazi-cwd.XXXXX")
+  yazi "$@" --cwd-file="$tmp"
+  if IFS= read -r cwd < "$tmp" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
 }
 

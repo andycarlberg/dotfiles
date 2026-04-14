@@ -1,3 +1,7 @@
 . ~/.shell/interactive
 
+# Prompt
+command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"
+
+# Setup fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -1,10 +1,8 @@
 #!/bin/sh
-
-# detect-wsl
-is_wsl=false
-if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ] || grep -q Microsoft /proc/version; then
-    is_wsl=true
-fi
+set -eu
+{{- if not .install_packages }}
+exit 0
+{{- end }}
 
 {{ $is_wsl := false -}}
 {{ if eq .chezmoi.os "linux" -}}

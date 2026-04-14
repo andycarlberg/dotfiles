@@ -1,0 +1,12 @@
+{{- if and .is_work (ne .github_ssh_host "github.com") }}
+# Personal GitHub identity for work machine.
+# Cloning personal repos as git@{{ .github_ssh_host }}:user/repo routes here
+# instead of using the default work SSH key.
+# NOTE: The private key (~/.ssh/id_ed25519_gh_personal) must be set up separately —
+#       chezmoi does not manage SSH private keys.
+Host {{ .github_ssh_host }}
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_gh_personal
+    IdentitiesOnly yes
+{{- end }}

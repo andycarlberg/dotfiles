@@ -1,0 +1,29 @@
+#!/bin/bash
+set -euo pipefail
+{{- if not (and .is_work (ne .github_ssh_host "github.com")) }}
+# Not a work machine with a custom GitHub SSH host — nothing to configure.
+exit 0
+{{- end }}
+
+SSH_CONFIG="$HOME/.ssh/config"
+INCLUDE_LINE="Include ~/.ssh/config.d/*"
+
+# Ensure the SSH config file exists with correct permissions.
+# (~/.ssh itself is already created by chezmoi when applying private_dot_ssh/)
+touch "$SSH_CONFIG"
+chmod 600 "$SSH_CONFIG"
+
+# Add the config.d Include if not already present.
+# Appending keeps existing entries (OrbStack, Colima, etc.) intact and in place.
+if ! grep -qF "$INCLUDE_LINE" "$SSH_CONFIG"; then
+    printf '\n%s\n' "$INCLUDE_LINE" >> "$SSH_CONFIG"
+    echo "Added '$INCLUDE_LINE' to $SSH_CONFIG"
+    echo ""
+    echo "The github.com-personal Host block is now managed by chezmoi at:"
+    echo "  ~/.ssh/config.d/github.conf"
+    echo ""
+    echo "If you have an inline github.com-personal block in $SSH_CONFIG,"
+    echo "you can safely remove it — both entries point to the same key."
+else
+    echo "'$INCLUDE_LINE' already present in $SSH_CONFIG — nothing to do."
+fi

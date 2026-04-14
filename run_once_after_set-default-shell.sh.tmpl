@@ -1,0 +1,23 @@
+#!/bin/bash
+set -euo pipefail
+{{ if not .set_default_shell -}}
+exit 0
+{{ end -}}
+
+FISH=$(command -v fish 2>/dev/null || true)
+
+if [[ -z "$FISH" ]]; then
+    echo "Warning: fish not found — packages may not be installed yet." >&2
+    echo "After installing packages, run: chsh -s \"\$(command -v fish)\"" >&2
+    exit 0
+fi
+
+# Register fish in /etc/shells if not already listed
+if ! grep -qF "$FISH" /etc/shells; then
+    echo "Adding $FISH to /etc/shells..."
+    echo "$FISH" | sudo tee -a /etc/shells > /dev/null
+fi
+
+echo "Changing default shell to fish ($FISH)..."
+chsh -s "$FISH"
+echo "Log out and back in for the change to take effect."

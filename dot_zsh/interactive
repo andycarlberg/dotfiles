@@ -1,31 +1,23 @@
 # Ensure environment is loaded (important for macOS or non-login shells)
 [[ -f ~/.shell/env ]] && . ~/.shell/env
 
+# Add local completions directory to fpath before compinit runs.
+# Drop generated completion files (e.g. from `mise completions zsh`) into ~/.zsh/completions/.
+fpath=(~/.zsh/completions $fpath)
+
 # Configure history
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt SHARE_HISTORY
 
-# Enable Powerlevel10k instant prompt
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 . ~/.shell/interactive
 
-# Install and load Antidote
-if [ ! -d "${HOME}/.antidote" ]; then 
-  git clone --depth=1 https://github.com/mattmc3/antidote.git ${HOME}/.antidote
-fi
-source ${ZDOTDIR:-~}/.antidote/antidote.zsh
-antidote load ${HOME}/.zsh/antidote_plugins
+# Completions
+autoload -Uz compinit && compinit
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.zsh/interactive_p10k ]] || source ~/.zsh/interactive_p10k
+# Prompt
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 
 # Setup fzf
-source <(fzf --zsh)
-
-# Activate mise hooks (if any, environment was set in .shell/env)
-type mise &> /dev/null && eval "$(mise activate zsh)"
+command -v fzf >/dev/null 2>&1 && source <(fzf --zsh)
