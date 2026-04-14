@@ -1,4 +1,14 @@
 #!/bin/bash
+set -euo pipefail
+{{- if not .install_packages }}
+exit 0
+{{- end }}
+
+# Require curl
+if ! command -v curl &>/dev/null; then
+    echo "ERROR: curl is required to install Homebrew" >&2
+    exit 1
+fi
 
 # Define the expected brew binary path based on OS and architecture
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -14,7 +24,7 @@ else
 fi
 
 # Install Homebrew if it isn't already there
-if ! command -v brew &> /dev/null && [[ ! -f "$BREW_BIN" ]]; then
+if ! command -v brew &>/dev/null && [[ ! -f "$BREW_BIN" ]]; then
     echo "Installing Homebrew..."
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi

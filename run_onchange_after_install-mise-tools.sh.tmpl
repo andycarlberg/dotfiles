@@ -1,4 +1,8 @@
 #!/bin/bash
+set -euo pipefail
+{{- if not .install_packages }}
+exit 0
+{{- end }}
 
 # mise config hash: {{ include "dot_config/mise/config.toml.tmpl" | sha256sum }}
 
