@@ -3,7 +3,7 @@ create_alias() {
   NEW_ALIAS="${1}"
   shift
   alias "${NEW_ALIAS}"="$*"
-  echo "alias ${NEW_ALIAS}=\"$*\"" >> "$HOME/.shell/interactive_aliases"
+  echo "alias ${NEW_ALIAS}=\"$*\"" >> "$HOME/.shell/interactive_aliases_local"
 }
 
 # Open yazi and cd to the directory on exit

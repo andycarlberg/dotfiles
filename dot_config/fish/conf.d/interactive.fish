@@ -3,7 +3,8 @@ if status is-interactive
     # Auto-attach to (or create) a Zellij session when opening a terminal
     # Run `touch ~/.no_zellij` to disable; `rm ~/.no_zellij` to re-enable
     if not test -e ~/.no_zellij; and type -q zellij; and not set -q ZELLIJ
-        zellij attach --create main
+        sleep 0.1
+        zellij
     end
 
     # Source POSIX-compliant aliases and functions
@@ -16,8 +17,6 @@ if status is-interactive
     end
 
     if type -q fzf
-        # Set up fzf key bindings
-        set -gx FZF_CTRL_R_OPTS "--layout reverse"
         fzf --fish | source
     end
 

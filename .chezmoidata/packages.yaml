@@ -35,3 +35,6 @@ paths:
   - .local/bin
   - .rd/bin
   - .lando/bin
+
+versions:
+  zjstatus: "v0.23.0"

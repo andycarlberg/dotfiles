@@ -1,5 +1,7 @@
 . ~/.shell/interactive
 
+set +H  # disable history expansion so aliases with ! (e.g. gcan!) work
+
 # Prompt
 command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"
 

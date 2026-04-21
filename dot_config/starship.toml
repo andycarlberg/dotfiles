@@ -20,7 +20,7 @@ add_newline = true
 
 [cmd_duration]
 format = '[$duration]($style)'
-min_time = 0
+min_time = 500
 style = 'bold blue'
 
 [directory]

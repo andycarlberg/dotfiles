@@ -4,7 +4,7 @@ set -euo pipefail
 exit 0
 {{- end }}
 
-# mise config hash: {{ include "dot_config/mise/config.toml.tmpl" | sha256sum }}
+# mise config hash: {{ include "dot_config/mise/config.toml" | sha256sum }}
 
 if command -v mise >/dev/null 2>&1; then
   echo "Installing missing mise tools..."

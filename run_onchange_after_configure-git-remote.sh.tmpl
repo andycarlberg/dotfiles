@@ -3,7 +3,7 @@
 # Ensures the chezmoi source directory uses the correct SSH remote URL,
 # accounting for personal SSH host aliases on work machines.
 
-set -e
+set -euo pipefail
 
 # Only proceed if the source directory is a git repository
 if [ ! -d "{{ .chezmoi.sourceDir }}/.git" ]; then

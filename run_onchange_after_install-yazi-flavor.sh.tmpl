@@ -1,0 +1,14 @@
+#!/bin/bash
+set -euo pipefail
+{{- if not .install_packages }}
+exit 0
+{{- end }}
+
+# colorscheme: {{ .colorscheme }}
+
+if ! command -v ya > /dev/null 2>&1; then
+    echo "ya not found — skipping yazi flavor install" >&2
+    exit 0
+fi
+
+ya pkg add "yazi-rs/flavors#{{ .colorscheme }}" 2>/dev/null || true
