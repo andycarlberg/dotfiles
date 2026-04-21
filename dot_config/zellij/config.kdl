@@ -228,8 +228,9 @@ plugins {
 
 default_mode "locked"
 show_startup_tips false
-on_force_close "detach"
+on_force_close "quit"
 mouse_mode true
+hide_frame_for_single_pane true
 
 ui {
     pane_frames {

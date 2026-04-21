@@ -2,7 +2,10 @@ export EDITOR='hx'
 export VISUAL='hx'
 export PAGER='bat'
 export BAT_PAGER='less -RF'
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export MANROFFOPT='-c'
+if command -v bat > /dev/null 2>&1; then
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+    export MANROFFOPT='-c'
+fi
+export FZF_DEFAULT_OPTS='--layout=reverse'
 export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'

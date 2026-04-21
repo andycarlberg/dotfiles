@@ -1,0 +1,15 @@
+themes:
+  catppuccin-mocha:
+    mantle: "#181825"
+    surface1: "#45475a"
+    tab_inactive: "#4C4C59"
+    overlay0: "#6C7086"
+    overlay2: "#9399B2"
+    blue: "#89b4fa"
+    lavender: "#b1bbfa"
+    green: "#a6e3a1"
+    peach: "#fab387"
+    yellow: "#f9e2af"
+    mauve: "#cba6f7"
+    red: "#f38ba8"
+    teal: "#94e2d5"

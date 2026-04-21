@@ -1,0 +1,39 @@
+{{- $c := index .themes .colorscheme -}}
+layout {
+    pane split_direction="vertical" {
+        pane
+    }
+
+    pane size=1 borderless=true {
+        plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
+            format_left  "{mode}#[fg={{ $c.mantle }},bg=blue]  #[fg=black,bg=blue,bold]{session}  #[fg=blue,bg={{ $c.mantle }}]{tabs}"
+            format_right "#[fg={{ $c.mantle }},bg={{ $c.lavender }}] {command_clock} "
+            format_space "#[bg={{ $c.mantle }}]"
+
+            hide_frame_for_single_pane "true"
+
+            mode_normal   "#[bg=blue] {name} #[fg=blue,bg={{ $c.mantle }}]"
+            mode_locked   "#[bg={{ $c.surface1 }}] {name} #[fg={{ $c.surface1 }},bg={{ $c.mantle }}]"
+            mode_pane     "#[bg={{ $c.green }}] {name} #[fg={{ $c.green }},bg={{ $c.mantle }}]"
+            mode_tab      "#[bg={{ $c.blue }}] {name} #[fg={{ $c.blue }},bg={{ $c.mantle }}]"
+            mode_resize   "#[bg={{ $c.peach }}] {name} #[fg={{ $c.peach }},bg={{ $c.mantle }}]"
+            mode_move     "#[bg={{ $c.yellow }}] {name} #[fg={{ $c.yellow }},bg={{ $c.mantle }}]"
+            mode_scroll   "#[bg={{ $c.mauve }}] {name} #[fg={{ $c.mauve }},bg={{ $c.mantle }}]"
+            mode_search   "#[bg={{ $c.red }}] {name} #[fg={{ $c.red }},bg={{ $c.mantle }}]"
+            mode_session  "#[bg={{ $c.teal }}] {name} #[fg={{ $c.teal }},bg={{ $c.mantle }}]"
+
+            tab_normal              "#[fg={{ $c.mantle }},bg={{ $c.tab_inactive }}] #[fg=#000000,bg={{ $c.tab_inactive }}]{index}  {name} #[fg={{ $c.tab_inactive }},bg={{ $c.mantle }}]"
+            tab_normal_fullscreen   "#[fg={{ $c.overlay0 }},bg={{ $c.mantle }}] {index} {name} [] "
+            tab_normal_sync         "#[fg={{ $c.overlay0 }},bg={{ $c.mantle }}] {index} {name} <> "
+            tab_active              "#[fg={{ $c.mantle }},bg=#ffffff,bold,italic] {index}  {name} #[fg=#ffffff,bg={{ $c.mantle }}]"
+            tab_active_fullscreen   "#[fg={{ $c.overlay2 }},bg={{ $c.mantle }},bold,italic] {index} {name} [] "
+            tab_active_sync         "#[fg={{ $c.overlay2 }},bg={{ $c.mantle }},bold,italic] {index} {name} <> "
+
+
+            command_clock_command "date +\"%a %b %_d %Y %H:%M %Z\""
+            command_clock_format "{stdout}"
+            command_clock_rendermode "static"
+            command_clock_interval "1"
+        }
+    }
+}
