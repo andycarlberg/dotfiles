@@ -28,6 +28,7 @@ packages:
   darwin:
     brew:
       - gcc
+      - font-hack-nerd-font
     casks:
       - ghostty
 
