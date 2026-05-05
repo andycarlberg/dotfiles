@@ -1,15 +1,16 @@
 packages:
   common:
-    - starship
-    - helix
-    - zellij
     - ripgrep
     - fzf
-    - mise
-    - yazi
     - bat
     - git-delta
   linux:
+    brew:
+      - starship
+      - helix
+      - zellij
+      - mise
+      - yazi
     arch:
       pacman:
         - ttf-hack-nerd
