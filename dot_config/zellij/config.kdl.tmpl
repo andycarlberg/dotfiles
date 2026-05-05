@@ -1,3 +1,4 @@
+{{- $c := index .themes .colorscheme -}}
 keybinds clear-defaults=true {
     locked {
         bind "Ctrl g" { SwitchToMode "normal"; }
@@ -208,6 +209,24 @@ keybinds clear-defaults=true {
     }
 }
 
+theme "catppuccin-mocha"
+
+themes {
+    catppuccin-mocha {
+        fg "{{ $c.lavender }}"
+        bg "{{ $c.surface1 }}"
+        black "{{ $c.mantle }}"
+        red "{{ $c.red }}"
+        green "{{ $c.green }}"
+        yellow "{{ $c.yellow }}"
+        blue "{{ $c.blue }}"
+        magenta "{{ $c.mauve }}"
+        cyan "{{ $c.teal }}"
+        white "{{ $c.overlay2 }}"
+        orange "{{ $c.peach }}"
+    }
+}
+
 // Plugin aliases — required for session/plugin-manager keybindings above
 plugins {
     about location="zellij:about"
@@ -230,7 +249,6 @@ default_mode "locked"
 show_startup_tips false
 on_force_close "quit"
 mouse_mode true
-hide_frame_for_single_pane true
 
 ui {
     pane_frames {
