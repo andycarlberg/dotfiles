@@ -24,6 +24,19 @@ fi
 
 {{ if eq .chezmoi.os "linux" -}}
 
+# Homebrew logic for Linux
+{{ $brew := .packages.linux.brew -}}
+{{ $common := .packages.common -}}
+{{ $all_brew := concat $brew $common -}}
+
+{{ $brew_cmd := "" -}}
+{{ range $all_brew -}}
+{{ $brew_cmd = printf "%s %s" $brew_cmd (. | quote) -}}
+{{ end -}}
+if command -v brew >/dev/null 2>&1; then
+    brew install {{ $brew_cmd }}
+fi
+
 {{ if eq .chezmoi.osRelease.id "cachyos" "arch" -}}
 # Arch-based logic
 {{ $pacman := .packages.linux.arch.pacman -}}
