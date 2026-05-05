@@ -19,19 +19,18 @@ elif [ -f "$HOME/.linuxbrew/bin/brew" ]; then
     eval "$($HOME/.linuxbrew/bin/brew shellenv)"
 fi
 
+# Legacy env/bash_env support
+export ENV=~/.sh/interactive
+export BASH_ENV=~/.bash/env
+
 # Activate mise (managed tool versions).
-# Guard on MISE_SHELL so this is a no-op if already activated (e.g. sourced twice via .zshenv + .zshrc).
-if command -v mise >/dev/null 2>&1 && [ -z "${MISE_SHELL-}" ]; then
+if command -v mise >/dev/null 2>&1; then
     if [ -n "$BASH_VERSION" ]; then
         eval "$(mise activate bash)"
     elif [ -n "$ZSH_VERSION" ]; then
         eval "$(mise activate zsh)"
     fi
 fi
-
-# Legacy env/bash_env support
-export ENV=~/.sh/interactive
-export BASH_ENV=~/.bash/env
 
 # Allow local machine-specific overrides
 ssource ~/.shell/env_local
