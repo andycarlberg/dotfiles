@@ -24,27 +24,13 @@ fi
 
 {{ if eq .chezmoi.os "linux" -}}
 
-# Homebrew logic for Linux
-{{ $brew := .packages.linux.brew -}}
-{{ $common := .packages.common -}}
-{{ $all_brew := concat $brew $common -}}
-
-{{ $brew_cmd := "" -}}
-{{ range $all_brew -}}
-{{ $brew_cmd = printf "%s %s" $brew_cmd (. | quote) -}}
-{{ end -}}
-if command -v brew >/dev/null 2>&1; then
-    brew install {{ $brew_cmd }}
-fi
+{{ $native_map := dict -}}
 
 {{ if eq .chezmoi.osRelease.id "cachyos" "arch" -}}
-# Arch-based logic
-{{ $pacman := .packages.linux.arch.pacman -}}
-{{ $common := .packages.common -}}
-{{ $all_pacman := concat $pacman $common -}}
-
+# Arch: pacman first — CachyOS provides optimized builds of most packages
 {{ $pacman_cmd := "" -}}
-{{ range $all_pacman -}}
+{{ range .packages.linux.arch.pacman -}}
+  {{- $native_map = set $native_map (toString .) true -}}
   {{- if and (eq . "ghostty") $is_wsl -}}
     {{/* Skip ghostty on WSL */}}
   {{- else -}}
@@ -53,37 +39,41 @@ fi
 {{ end -}}
 sudo pacman -Sy --needed {{ $pacman_cmd }}
 
-{{ $paru := "" -}}
+{{ $paru_cmd := "" -}}
 {{ range .packages.linux.arch.paru -}}
-{{ $paru = printf "%s %s" $paru (. | quote) -}}
+{{ $paru_cmd = printf "%s %s" $paru_cmd (. | quote) -}}
 {{ end -}}
-paru -Sy --needed {{ $paru }}
+paru -Sy --needed {{ $paru_cmd }}
 
 {{ else if eq .chezmoi.osRelease.id "debian" "ubuntu" -}}
-# Debian/Ubuntu logic
-{{ $apt := .packages.linux.debian.apt -}}
-{{ $common := .packages.common -}}
-{{ $all_apt := concat $apt $common -}}
-
+# Debian/Ubuntu: apt first for distro-native packages
 {{ $apt_cmd := "" -}}
-{{ range $all_apt -}}
-  {{- if eq . "ghostty" -}}
-    # Ghostty skip (needs custom handling for Debian)
-  {{- else -}}
-    {{ $apt_cmd = printf "%s %s" $apt_cmd (. | quote) -}}
-  {{- end -}}
+{{ range .packages.linux.debian.apt -}}
+  {{- $native_map = set $native_map (toString .) true -}}
+  {{ $apt_cmd = printf "%s %s" $apt_cmd (. | quote) -}}
 {{ end -}}
 sudo apt-get update
 sudo apt-get install -y {{ $apt_cmd }}
 
 {{ end -}}
 
-{{ else if eq .chezmoi.os "darwin" -}}
-# macOS logic
-{{ $brew := .packages.darwin.brew -}}
-{{ $common := .packages.common -}}
-{{ $all_brew := concat $brew $common -}}
+# Homebrew: packages not covered by the distro package manager above
+# On Arch this is typically just mise (preferred over pacman for fish completions)
+{{ $brew_cmd := "" -}}
+{{ range .packages.brew -}}
+  {{- if not (index $native_map (toString .)) -}}
+    {{ $brew_cmd = printf "%s %s" $brew_cmd (. | quote) -}}
+  {{- end -}}
+{{ end -}}
+{{ if $brew_cmd -}}
+if command -v brew >/dev/null 2>&1; then
+    brew install {{ $brew_cmd }}
+fi
+{{ end -}}
 
+{{ else if eq .chezmoi.os "darwin" -}}
+# macOS: brew for everything
+{{ $all_brew := concat .packages.darwin.brew .packages.brew -}}
 {{ $brew_cmd := "" -}}
 {{ range $all_brew -}}
 {{ $brew_cmd = printf "%s %s" $brew_cmd (. | quote) -}}
