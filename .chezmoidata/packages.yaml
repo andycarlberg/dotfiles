@@ -1,21 +1,33 @@
 packages:
-  common:
+  brew:
     - ripgrep
     - fzf
     - bat
     - git-delta
+    - starship
+    - helix
+    - zellij
+    - mise
+    - yazi
+    - fd
   linux:
-    brew:
-      - starship
-      - helix
-      - zellij
-      - mise
-      - yazi
     arch:
       pacman:
-        - ttf-hack-nerd
         - base-devel
+        - curl
+        - git
+        - fish
+        - ttf-hack-nerd
         - ghostty
+        - ripgrep
+        - fzf
+        - bat
+        - git-delta
+        - starship
+        - helix
+        - zellij
+        - yazi
+        - fd
       paru:
         - check-broken-packages-pacman-hook-git
         - pacdiff-pacman-hook-git
@@ -26,10 +38,14 @@ packages:
         - build-essential
         - curl
         - git
+        - fish
+        - ghostty
   darwin:
     brew:
       - gcc
       - font-hack-nerd-font
+      - git
+      - fish
     casks:
       - ghostty
 
