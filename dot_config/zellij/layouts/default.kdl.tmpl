@@ -5,7 +5,7 @@ layout {
     }
 
     pane size=1 borderless=true {
-        plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
+        plugin location="file:{{ .chezmoi.homeDir }}/.config/zellij/plugins/zjstatus.wasm" {
             format_left  "{mode}#[fg={{ $c.mantle }},bg=blue]  #[fg=black,bg=blue,bold]{session}  #[fg=blue,bg={{ $c.mantle }}]{tabs}"
             format_right "#[fg={{ $c.mantle }},bg={{ $c.lavender }}] {datetime}"
             format_space "#[bg={{ $c.mantle }}]"
