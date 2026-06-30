@@ -12,6 +12,10 @@ args = ["astro-ls", "--stdio"]
 command = "npx"
 args = ["typescript-language-server", "--stdio"]
 
+{{ if hasKey . "intelephense_license" }}
+[language-server.intelephense]
+config = { licenceKey = "{{ .chezmoi.homeDir }}/.config/helix/intelephense_licence.txt" }
+{{ end }}
 
 ## --- LANGUAGE CONFIGURATIONS ---
 
@@ -38,3 +42,7 @@ language-servers = [
     "astro-ls",
     "biome",
 ]
+
+[[language]]
+name = "php"
+language-servers = ["intelephense"]
