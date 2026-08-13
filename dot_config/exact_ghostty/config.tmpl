@@ -1,7 +1,9 @@
+theme = {{ .colorscheme | replace "-" " " | title }}
 font-family = "Hack Nerd Font Mono"
 font-size = 12
 font-thicken = true
-theme = {{ .colorscheme | replace "-" " " | title }}
 
 # Enforce WCAG "normal text" contrast (4.5:1)
 minimum-contrast = 4.5
+
+confirm-close-surface = false
