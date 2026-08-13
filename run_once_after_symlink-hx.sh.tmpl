@@ -1,0 +1,28 @@
+#!/bin/bash
+set -euo pipefail
+
+# helix's binary is named `hx` upstream, but some package managers (e.g. pacman
+# on Arch/CachyOS) install it as `helix` instead. Always ensure ~/.local/bin/hx
+# exists (even where the real binary is already `hx`) so EDITOR can point at a
+# fixed absolute path — sudo's secure_path won't search ~/.local/bin, so a bare
+# `hx`/PATH lookup fails under sudoedit.
+TARGET="$HOME/.local/bin/hx"
+
+REAL=""
+for candidate in hx helix; do
+    found=$(command -v "$candidate" 2>/dev/null || true)
+    # skip our own symlink so re-runs don't point the symlink at itself
+    if [[ -n "$found" && "$found" != "$TARGET" ]]; then
+        REAL="$found"
+        break
+    fi
+done
+
+if [[ -z "$REAL" ]]; then
+    echo "Warning: neither hx nor helix found on PATH — skipping symlink." >&2
+    exit 0
+fi
+
+mkdir -p "$HOME/.local/bin"
+ln -sf "$REAL" "$TARGET"
+echo "Symlinked hx -> $REAL"
