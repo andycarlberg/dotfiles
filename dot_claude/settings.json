@@ -1,4 +1,5 @@
 {
+  "effortLevel": "low",
   "theme": "auto",
-  "effortLevel": "low"
+  "agentPushNotifEnabled": true
 }
