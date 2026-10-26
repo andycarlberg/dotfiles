@@ -61,20 +61,25 @@ Goal: keep a clean, coherent, intentional git history. I review staged diffs bef
   size of the change — don't introduce a test level the project doesn't use.
 - Not done until it has adequate test coverage and passes lint. Run the linter once at
   the end, not after every edit, and fix everything it flags in one pass.
-- Design principles: single responsibility, low coupling, high cohesion, small
-  functions/units that do one thing, dependencies pointing toward stable abstractions.
-  A few similar lines beat a speculative abstraction — don't add config options, flags,
-  or hooks for requirements that don't exist yet. No backwards-compat shims for
-  internal-only code — change the code and its callers directly, unless the change
-  touches a public API or library with external consumers.
-- Comments explain **why**, not **what** — only when the logic isn't obvious from the
-  code itself. Favor self-documenting code over restating what it already says.
-- Clear, descriptive names over abbreviations; name magic numbers/strings as constants.
-- Fail loud, not silent: don't swallow errors or add fallback logic for cases that can't
-  actually happen. Validate only at system boundaries (user input, external APIs) —
-  trust internal code and framework guarantees elsewhere.
-- Prioritize readable, maintainable code over clever solutions. Only go dense or
-  obfuscated where it has a real, measured benefit (e.g. perf) — and comment why.
+- **Core Engineering Principles**:
+  - **Simple First**: Favor readable, straightforward solutions over clever tricks,
+    premature optimizations, or layered abstractions. Small functions/units that do
+    one thing; dependencies pointing toward stable abstractions.
+  - **YAGNI**: Build strictly for current requirements. No speculative parameters, config
+    flags, or hooks for hypothetical future needs. No backwards-compat shims for
+    internal-only code — update callers directly.
+  - **DRY**: Every piece of knowledge or logic must have a single authoritative representation.
+    Extract duplicated logic into reusable units — but remember a few similar lines beat a
+    premature or speculative abstraction.
+  - **Fail Fast**: Validate early at system boundaries (user input, external APIs) and fail
+    loudly and immediately. Never swallow errors, mask failures, or add fallback defaults
+    that silently hide bad state. Trust internal code and framework guarantees elsewhere.
+  - **Delete Aggressively**: Dead code is a liability. Ruthlessly prune dead code, unused
+    variables/helpers, commented-out blocks, and superseded wrappers on sight within the scope
+    of touched code. Don't leave deprecated scaffolding behind.
+  - **Semantic Naming**: Intent-revealing, descriptive names over abbreviations for all
+    symbols. Name magic numbers and strings as constants. Code should be self-documenting
+    so comments explain *why*, not *what* (and only when not obvious from code).
 - Don't guess at unfamiliar APIs/libraries — verify signatures/docs before use. Before
   writing new code, check for an existing util or pattern in the codebase, and prefer
   the standard library or an existing dependency over adding a new package.
